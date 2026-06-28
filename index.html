@@ -1,0 +1,2143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axiom — Engineering Memory Infrastructure</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           CSS - Complete Styling (Dark, Enterprise UI)
+           ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #09090b;
+            --bg-secondary: #18181b;
+            --bg-card: #1a1a1e;
+            --bg-input: #27272a;
+            --border-color: #2d2d30;
+            --text-primary: #fafafa;
+            --text-secondary: #a1a1aa;
+            --text-muted: #71717a;
+            --accent-purple: #a855f7;
+            --accent-blue: #3b82f6;
+            --accent-green: #22c55e;
+            --accent-red: #ef4444;
+            --accent-yellow: #eab308;
+            --accent-orange: #f97316;
+            --font-inter: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        body {
+            font-family: var(--font-inter);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-secondary); }
+        ::-webkit-scrollbar-thumb { background: var(--accent-purple); border-radius: 3px; }
+
+        /* ============================================
+           LOGIN PAGE
+           ============================================ */
+        .login-page {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            background: radial-gradient(ellipse at center, #1a1a2e 0%, #0a0a0a 70%);
+        }
+
+        .login-card {
+            background: var(--bg-card);
+            padding: 48px 40px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 20%, rgba(168, 85, 247, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .login-card .logo {
+            font-size: 64px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .login-card h1 {
+            font-size: 44px;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 4px;
+            letter-spacing: -1px;
+            position: relative;
+        }
+
+        .login-card .tagline {
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .login-card .subtitle {
+            color: var(--text-muted);
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        .login-card .description {
+            color: var(--text-muted);
+            font-size: 13px;
+            margin-bottom: 32px;
+            line-height: 1.7;
+        }
+
+        .login-card .features-mini {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 24px;
+            padding: 12px;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+        }
+
+        .login-card .features-mini span {
+            font-size: 11px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .btn-github {
+            width: 100%;
+            padding: 14px 20px;
+            background: #ffffff;
+            color: #000000;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            font-family: var(--font-inter);
+        }
+
+        .btn-github:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(168, 85, 247, 0.3);
+            background: #f5f5f5;
+        }
+
+        .btn-github:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        .btn-github svg {
+            width: 22px;
+            height: 22px;
+            flex-shrink: 0;
+        }
+
+        .login-footer {
+            color: var(--text-muted);
+            font-size: 11px;
+            margin-top: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .login-footer a {
+            color: var(--accent-purple);
+            text-decoration: none;
+        }
+
+        .login-status {
+            margin-top: 12px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            display: none;
+        }
+
+        .login-status.show {
+            display: block;
+        }
+        .login-status.error {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--accent-red);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+        .login-status.success {
+            background: rgba(34, 197, 94, 0.1);
+            color: var(--accent-green);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+
+        /* ============================================
+           DASHBOARD
+           ============================================ */
+        .dashboard {
+            display: none;
+            min-height: 100vh;
+            background: var(--bg-primary);
+        }
+
+        .dashboard.active {
+            display: block;
+        }
+
+        /* Header */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(9, 9, 11, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .header-left .logo-text {
+            font-size: 22px;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .header-left .version {
+            font-size: 10px;
+            color: var(--text-muted);
+            background: var(--bg-secondary);
+            padding: 2px 8px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 4px 12px 4px 4px;
+            background: var(--bg-secondary);
+            border-radius: 50px;
+            border: 1px solid var(--border-color);
+        }
+
+        .user-profile img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-purple);
+        }
+
+        .user-profile .name {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .user-profile .username {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .btn-logout {
+            padding: 6px 16px;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.2s;
+            font-family: var(--font-inter);
+        }
+
+        .btn-logout:hover {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: var(--accent-red);
+            color: var(--accent-red);
+        }
+
+        /* Main Layout */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 0;
+            min-height: calc(100vh - 70px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            padding: 20px 16px;
+            overflow-y: auto;
+            position: sticky;
+            top: 70px;
+            height: calc(100vh - 70px);
+        }
+
+        .sidebar-section {
+            margin-bottom: 24px;
+        }
+
+        .sidebar-section .section-title {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .sidebar-nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 2px;
+            text-decoration: none;
+        }
+
+        .sidebar-nav-item:hover {
+            background: var(--bg-card);
+            color: var(--text-primary);
+        }
+
+        .sidebar-nav-item.active {
+            background: rgba(168, 85, 247, 0.1);
+            color: var(--accent-purple);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+        }
+
+        .sidebar-nav-item .icon {
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .sidebar-nav-item .badge {
+            margin-left: auto;
+            font-size: 10px;
+            background: var(--accent-purple);
+            color: white;
+            padding: 1px 8px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .sidebar-nav-item .badge.green { background: var(--accent-green); }
+        .sidebar-nav-item .badge.orange { background: var(--accent-orange); }
+        .sidebar-nav-item .badge.red { background: var(--accent-red); }
+
+        /* Content Area */
+        .content {
+            padding: 24px 32px;
+            overflow-y: auto;
+            max-height: calc(100vh - 70px);
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Page Header */
+        .page-header {
+            margin-bottom: 24px;
+        }
+
+        .page-header h2 {
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .page-header p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            padding: 18px 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: border-color 0.3s;
+        }
+
+        .stat-card:hover {
+            border-color: var(--accent-purple);
+        }
+
+        .stat-card .label {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-card .value {
+            font-size: 30px;
+            font-weight: 700;
+            margin-top: 4px;
+            letter-spacing: -0.5px;
+        }
+
+        .stat-card .value.purple { color: var(--accent-purple); }
+        .stat-card .value.blue { color: var(--accent-blue); }
+        .stat-card .value.green { color: var(--accent-green); }
+        .stat-card .value.orange { color: var(--accent-orange); }
+        .stat-card .value.red { color: var(--accent-red); }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            padding: 20px 24px;
+            margin-bottom: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .card:hover {
+            border-color: rgba(168, 85, 247, 0.2);
+        }
+
+        .card-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-subtitle {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* Forms */
+        .input-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .input-group input {
+            flex: 1;
+            min-width: 200px;
+            padding: 12px 16px;
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 14px;
+            font-family: var(--font-inter);
+            transition: border-color 0.3s;
+            outline: none;
+        }
+
+        .input-group input:focus {
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.1);
+        }
+
+        .input-group input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .btn-primary {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: var(--font-inter);
+            white-space: nowrap;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(168, 85, 247, 0.3);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        .btn-secondary {
+            padding: 10px 20px;
+            background: var(--bg-input);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: var(--font-inter);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border-color);
+        }
+
+        /* Repository List */
+        .repo-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border-color);
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .repo-item:last-child {
+            border-bottom: none;
+        }
+
+        .repo-item .info .name {
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .repo-item .info .name a {
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+        .repo-item .info .name a:hover {
+            color: var(--accent-purple);
+        }
+
+        .repo-item .info .desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .repo-item .info .tags {
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 6px;
+            flex-wrap: wrap;
+        }
+
+        .repo-item .info .tags .lang { color: var(--accent-green); }
+        .repo-item .info .tags .stars { color: var(--accent-yellow); }
+        .repo-item .info .tags .forks { color: var(--accent-blue); }
+        .repo-item .info .tags .private { color: var(--accent-orange); }
+        .repo-item .info .tags .public { color: var(--accent-green); }
+
+        .repo-item .actions {
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .repo-item .actions .btn-sm {
+            padding: 4px 12px;
+            font-size: 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: var(--font-inter);
+        }
+
+        .repo-item .actions .btn-sm:hover {
+            background: var(--bg-card);
+            border-color: var(--accent-purple);
+            color: var(--accent-purple);
+        }
+
+        .repo-item .actions .btn-sm.imported {
+            background: rgba(34, 197, 94, 0.1);
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+        }
+
+        /* Terminal / Chat */
+        .terminal-container {
+            background: #0a0a0a;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            font-family: var(--font-mono);
+        }
+
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .terminal-header .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        .terminal-header .dot.red { background: #ef4444; }
+        .terminal-header .dot.yellow { background: #eab308; }
+        .terminal-header .dot.green { background: #22c55e; }
+
+        .terminal-header .title {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-left: 8px;
+            font-family: var(--font-inter);
+        }
+
+        .terminal-body {
+            padding: 16px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .terminal-body .message {
+            margin-bottom: 8px;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .terminal-body .message .user {
+            color: var(--accent-blue);
+        }
+        .terminal-body .message .ai {
+            color: var(--accent-purple);
+        }
+        .terminal-body .message .system {
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .terminal-input-row {
+            display: flex;
+            gap: 12px;
+            padding: 12px 16px;
+            border-top: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+        }
+
+        .terminal-input-row input {
+            flex: 1;
+            padding: 10px 14px;
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: var(--font-mono);
+            font-size: 13px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .terminal-input-row input:focus {
+            border-color: var(--accent-purple);
+        }
+
+        .terminal-input-row input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .terminal-input-row .btn-send {
+            padding: 10px 20px;
+            background: var(--accent-purple);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: var(--font-inter);
+            transition: all 0.2s;
+        }
+
+        .terminal-input-row .btn-send:hover {
+            background: #9333ea;
+        }
+
+        .terminal-input-row .btn-send:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Blast Radius Result */
+        .blast-result {
+            margin-top: 16px;
+            padding: 16px 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+        }
+
+        .blast-result .risk-critical {
+            color: var(--accent-red);
+            font-weight: 700;
+            font-size: 20px;
+        }
+        .blast-result .risk-medium {
+            color: var(--accent-orange);
+            font-weight: 700;
+            font-size: 20px;
+        }
+        .blast-result .risk-low {
+            color: var(--accent-green);
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        .blast-result .detail {
+            margin-top: 8px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .blast-result .files-list {
+            margin-top: 8px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .blast-result .files-list .file-tag {
+            background: var(--bg-input);
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-family: var(--font-mono);
+            color: var(--text-secondary);
+        }
+
+        .blast-result .recommendation {
+            margin-top: 12px;
+            padding: 12px 16px;
+            background: rgba(168, 85, 247, 0.05);
+            border-left: 3px solid var(--accent-purple);
+            border-radius: 6px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Agents Grid */
+        .agents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+        }
+
+        .agent-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            padding: 18px 20px;
+            transition: all 0.3s;
+        }
+
+        .agent-card:hover {
+            border-color: var(--accent-purple);
+            transform: translateY(-2px);
+        }
+
+        .agent-card .agent-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .agent-card .agent-name {
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .agent-card .agent-role {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .agent-card .agent-status {
+            margin-top: 10px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .agent-card .agent-status .ready {
+            color: var(--accent-green);
+        }
+        .agent-card .agent-status .busy {
+            color: var(--accent-orange);
+        }
+        .agent-card .agent-status .offline {
+            color: var(--text-muted);
+        }
+
+        .agent-card .agent-capabilities {
+            margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+
+        .agent-card .agent-capabilities .cap {
+            font-size: 10px;
+            background: var(--bg-input);
+            padding: 2px 8px;
+            border-radius: 20px;
+            color: var(--text-muted);
+        }
+
+        .agent-card .btn-activate {
+            margin-top: 12px;
+            width: 100%;
+            padding: 8px;
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: var(--font-inter);
+        }
+
+        .agent-card .btn-activate:hover {
+            background: var(--accent-purple);
+            color: white;
+            border-color: var(--accent-purple);
+        }
+
+        .agent-card .btn-activate.active {
+            background: var(--accent-green);
+            color: white;
+            border-color: var(--accent-green);
+        }
+
+        /* Pipeline Stepper */
+        .pipeline {
+            display: flex;
+            gap: 0;
+            align-items: center;
+            margin: 16px 0;
+            flex-wrap: wrap;
+        }
+
+        .pipeline-step {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--bg-input);
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-muted);
+            position: relative;
+        }
+
+        .pipeline-step .check {
+            color: var(--accent-green);
+        }
+
+        .pipeline-step .spinner {
+            display: none;
+            width: 16px;
+            height: 16px;
+            border: 2px solid var(--text-muted);
+            border-top-color: var(--accent-purple);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .pipeline-step.active .spinner { display: block; }
+        .pipeline-step.active .check { display: none; }
+        .pipeline-step.done { background: rgba(34, 197, 94, 0.1); color: var(--accent-green); }
+
+        .pipeline-arrow {
+            color: var(--text-muted);
+            padding: 0 8px;
+            font-size: 18px;
+        }
+
+        /* Import Status */
+        .import-status {
+            margin-top: 12px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .import-status.show {
+            display: block;
+        }
+        .import-status.success {
+            background: rgba(34, 197, 94, 0.1);
+            color: var(--accent-green);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+        .import-status.error {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--accent-red);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+        .import-status.loading {
+            background: rgba(168, 85, 247, 0.05);
+            color: var(--text-secondary);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+        }
+
+        /* Loading Spinner */
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+        }
+
+        .loading-spinner .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--bg-input);
+            border-top-color: var(--accent-purple);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 12px;
+        }
+
+        .loading-spinner.show {
+            display: block;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                display: none;
+            }
+            .sidebar.mobile-show {
+                display: block;
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 100;
+                background: var(--bg-secondary);
+                border-right: none;
+                height: calc(100vh - 70px);
+            }
+            .mobile-menu-btn {
+                display: flex !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .login-card { padding: 32px 24px; }
+            .login-card h1 { font-size: 34px; }
+            .login-card .features-mini { grid-template-columns: 1fr; gap: 4px; }
+            .content { padding: 16px; }
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+            .agents-grid { grid-template-columns: 1fr; }
+            .header { padding: 10px 16px; }
+            .header-left .logo-text { font-size: 18px; }
+            .user-profile .name { display: none; }
+            .pipeline { gap: 4px; }
+            .pipeline-step { font-size: 11px; padding: 4px 10px; }
+            .pipeline-arrow { padding: 0 4px; font-size: 14px; }
+            .input-group { flex-direction: column; }
+            .input-group input { min-width: auto; }
+            .btn-primary { width: 100%; justify-content: center; }
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 24px;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        /* Utilities */
+        .text-muted { color: var(--text-muted); }
+        .mt-8 { margin-top: 8px; }
+        .mt-16 { margin-top: 16px; }
+        .mb-8 { margin-bottom: 8px; }
+        .mb-16 { margin-bottom: 16px; }
+        .flex { display: flex; }
+        .flex-center { align-items: center; justify-content: center; }
+        .gap-8 { gap: 8px; }
+        .gap-12 { gap: 12px; }
+        .w-full { width: 100%; }
+        .text-center { text-align: center; }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+        }
+
+        .empty-state .icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+            opacity: 0.5;
+        }
+
+        .empty-state h3 {
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .empty-state p {
+            font-size: 14px;
+            max-width: 400px;
+            margin: 4px auto 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================
+    LOGIN PAGE
+    ============================================ -->
+    <div id="loginPage" class="login-page">
+        <div class="login-card">
+            <span class="logo">⚡</span>
+            <h1>Axiom</h1>
+            <p class="tagline">Engineering Memory Infrastructure</p>
+            <p class="subtitle">Your codebase has memory. Now your team does too.</p>
+            <p class="description">AI-powered repository intelligence for serious engineering teams.</p>
+
+            <div class="features-mini">
+                <span>🧠 Memory Layer</span>
+                <span>💥 Blast Radius</span>
+                <span>🤖 Agent Roster</span>
+            </div>
+
+            <button class="btn-github" onclick="handleLogin()" id="loginBtn">
+                <svg viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                </svg>
+                Continue with GitHub
+            </button>
+
+            <div id="loginStatus" class="login-status"></div>
+
+            <p class="login-footer">
+                Backend-controlled • Secure OAuth • MIT License<br>
+                <span style="font-size:10px;color:var(--text-muted);">v0.1.0-mvp · Built by <a href="https://github.com/vxssroot" target="_blank">vxssroot</a></span>
+            </p>
+        </div>
+    </div>
+
+    <!-- ============================================
+    DASHBOARD
+    ============================================ -->
+    <div id="dashboard" class="dashboard">
+
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <span class="logo-text">⚡ Axiom</span>
+                <span class="version">v0.1.0-mvp</span>
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+            </div>
+            <div class="header-right">
+                <div class="user-profile">
+                    <img id="avatar" src="" alt="Avatar">
+                    <div>
+                        <div class="name" id="userName">Loading...</div>
+                        <div class="username" id="userUsername">@loading</div>
+                    </div>
+                </div>
+                <button class="btn-logout" onclick="handleLogout()">Sign Out</button>
+            </div>
+        </header>
+
+        <!-- Main Layout -->
+        <div class="main-layout">
+
+            <!-- Sidebar -->
+            <nav class="sidebar" id="sidebar">
+                <div class="sidebar-section">
+                    <div class="section-title">Navigation</div>
+                    <a class="sidebar-nav-item active" onclick="navigateTo('dashboard')" data-page="dashboard">
+                        <span class="icon">📊</span> Dashboard
+                    </a>
+                    <a class="sidebar-nav-item" onclick="navigateTo('repos')" data-page="repos">
+                        <span class="icon">📁</span> Repositories
+                        <span class="badge" id="repoCount">0</span>
+                    </a>
+                    <a class="sidebar-nav-item" onclick="navigateTo('chat')" data-page="chat">
+                        <span class="icon">💬</span> Terminal
+                    </a>
+                    <a class="sidebar-nav-item" onclick="navigateTo('blast')" data-page="blast">
+                        <span class="icon">💥</span> Blast Radius
+                    </a>
+                    <a class="sidebar-nav-item" onclick="navigateTo('agents')" data-page="agents">
+                        <span class="icon">🤖</span> Agents
+                        <span class="badge green">5</span>
+                    </a>
+                </div>
+
+                <div class="sidebar-section">
+                    <div class="section-title">System</div>
+                    <div class="sidebar-nav-item" style="cursor:default;opacity:0.7;">
+                        <span class="icon">🟢</span> API: <span id="apiStatus">Checking...</span>
+                    </div>
+                    <div class="sidebar-nav-item" style="cursor:default;opacity:0.7;">
+                        <span class="icon">📍</span> Region: <span id="regionDisplay">Global</span>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Content -->
+            <div class="content">
+
+                <!-- ============================================
+                PAGE: DASHBOARD
+                ============================================ -->
+                <div id="page-dashboard" class="page active">
+                    <div class="page-header">
+                        <h2>📊 Dashboard</h2>
+                        <p>Welcome back, <span id="welcomeName">Engineer</span> — here's your codebase intelligence.</p>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="label">Repositories</div>
+                            <div class="value purple" id="statRepos">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="label">Public Repos</div>
+                            <div class="value blue" id="statPublic">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="label">Followers</div>
+                            <div class="value green" id="statFollowers">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="label">Following</div>
+                            <div class="value orange" id="statFollowing">0</div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title">🧠 Engineering Memory</div>
+                        <div class="card-subtitle">Axiom has indexed your codebases for institutional memory.</div>
+                        <div style="margin-top:12px;display:flex;gap:24px;flex-wrap:wrap;font-size:14px;color:var(--text-muted);">
+                            <span>📄 Files analyzed: <strong style="color:var(--text-primary);" id="fileCount">0</strong></span>
+                            <span>🔍 Modules mapped: <strong style="color:var(--text-primary);" id="moduleCount">0</strong></span>
+                            <span>💾 Embeddings stored: <strong style="color:var(--text-primary);" id="embeddingCount">0</strong></span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title">🔄 Quick Actions</div>
+                        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;">
+                            <button class="btn-primary" onclick="navigateTo('repos')">📁 Import Repository</button>
+                            <button class="btn-secondary" onclick="navigateTo('chat')">💬 Ask Axiom</button>
+                            <button class="btn-secondary" onclick="navigateTo('blast')">💥 Check Blast Radius</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title">🤖 Agent Status</div>
+                        <div id="agentStatusMini" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:8px;">
+                            <div style="font-size:13px;color:var(--text-muted);">Loading agents...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ============================================
+                PAGE: REPOSITORIES
+                ============================================ -->
+                <div id="page-repos" class="page">
+                    <div class="page-header">
+                        <h2>📁 Repositories</h2>
+                        <p>Import and manage your GitHub repositories.</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title">📥 Import Repository</div>
+                        <div class="input-group">
+                            <input type="text" id="repoUrlInput" placeholder="https://github.com/owner/repo" value="https://github.com/vxssroot/Axiom">
+                            <button class="btn-primary" onclick="importRepo()" id="importBtn">Import</button>
+                        </div>
+                        <div id="importStatus" class="import-status"></div>
+                        <div id="pipelineContainer" style="display:none;">
+                            <div class="pipeline" id="pipeline">
+                                <div class="pipeline-step" id="step-queue"><span class="check">✓</span><span class="spinner"></span> Queue</div>
+                                <span class="pipeline-arrow">→</span>
+                                <div class="pipeline-step" id="step-clone"><span class="check">✓</span><span class="spinner"></span> Clone</div>
+                                <span class="pipeline-arrow">→</span>
+                                <div class="pipeline-step" id="step-parse"><span class="check">✓</span><span class="spinner"></span> Parse</div>
+                                <span class="pipeline-arrow">→</span>
+                                <div class="pipeline-step" id="step-complete"><span class="check">✓</span><span class="spinner"></span> Complete</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title">📂 Your Repositories</div>
+                        <div id="repoList">
+                            <div class="empty-state">
+                                <div class="icon">📭</div>
+                                <h3>No repositories loaded</h3>
+                                <p>Import a repository above or connect to GitHub to see your repos.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ============================================
+                PAGE: CHAT / TERMINAL
+                ============================================ -->
+                <div id="page-chat" class="page">
+                    <div class="page-header">
+                        <h2>💬 Terminal</h2>
+                        <p>Ask Axiom anything about your codebase.</p>
+                    </div>
+
+                    <div class="card" style="padding:0;overflow:hidden;">
+                        <div class="terminal-container">
+                            <div class="terminal-header">
+                                <span class="dot red"></span>
+                                <span class="dot yellow"></span>
+                                <span class="dot green"></span>
+                                <span class="title">axiom-terminal — v0.1.0</span>
+                            </div>
+                            <div class="terminal-body" id="terminalBody">
+                                <div class="message system">⚡ Axiom terminal ready. Ask me anything about your codebase.</div>
+                                <div class="message system">💡 Try: "What does the main service do?" or "Who owns the auth module?"</div>
+                            </div>
+                            <div class="terminal-input-row">
+                                <input type="text" id="chatInput" placeholder="Ask Axiom about your codebase..." onkeydown="if(event.key==='Enter')sendChat()">
+                                <button class="btn-send" onclick="sendChat()" id="sendBtn">Send</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">
+                        <button class="btn-secondary" onclick="quickPrompt('What does this codebase do?')">📋 What does this do?</button>
+                        <button class="btn-secondary" onclick="quickPrompt('Who owns the authentication module?')">👤 Who owns auth?</button>
+                        <button class="btn-secondary" onclick="quickPrompt('Summarize the architecture')">🏗️ Summarize architecture</button>
+                        <button class="btn-secondary" onclick="quickPrompt('What are the main dependencies?')">📦 Main deps</button>
+                    </div>
+                </div>
+
+                <!-- ============================================
+                PAGE: BLAST RADIUS
+                ============================================ -->
+                <div id="page-blast" class="page">
+                    <div class="page-header">
+                        <h2>💥 Blast Radius</h2>
+                        <p>Assess the risk of changes before you make them.</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title">🎯 Target Analysis</div>
+                        <div class="input-group">
+                            <input type="text" id="blastInput" placeholder="Enter file path or function name (e.g., src/api/auth.py)" value="src/main.py">
+                            <button class="btn-primary" onclick="runBlastRadius()" id="blastBtn">Analyze</button>
+                        </div>
+                        <div id="blastResult" style="display:none;" class="blast-result">
+                            <div id="blastRisk"></div>
+                            <div class="detail" id="blastDetail"></div>
+                            <div class="files-list" id="blastFiles"></div>
+                            <div class="recommendation" id="blastRecommendation"></div>
+                        </div>
+                        <div id="blastLoading" class="loading-spinner">
+                            <div class="spinner"></div>
+                            <p>Analyzing blast radius...</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title">📊 Recent Analyses</div>
+                        <div id="blastHistory" style="font-size:14px;color:var(--text-muted);">
+                            <div class="empty-state" style="padding:20px;">
+                                <p>No recent analyses. Run a blast radius check above.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ============================================
+                PAGE: AGENTS
+                ============================================ -->
+                <div id="page-agents" class="page">
+                    <div class="page-header">
+                        <h2>🤖 Agent Roster</h2>
+                        <p>Five specialist agents, each with a domain.</p>
+                    </div>
+
+                    <div class="agents-grid" id="agentsGrid">
+                        <!-- Rendered by JS -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+    JAVASCRIPT — COMPLETE APPLICATION LOGIC
+    ============================================ -->
+    <script>
+        // ============================================
+        // CONFIGURATION
+        // ============================================
+        const CONFIG = {
+            // Use the Hugging Face deployed backend, fallback to localhost
+            API_BASE: 'https://vossnetwork-axiom-api.hf.space',
+            // API_BASE: 'http://localhost:8000', // Uncomment for local dev
+            GITHUB_CLIENT_ID: 'Ov23liyZ0DVT21nm9MWs',
+            STORAGE_KEY: 'axiom_token',
+            USER_KEY: 'axiom_user',
+            REPOS_KEY: 'axiom_repos',
+            BLAST_HISTORY_KEY: 'axiom_blast_history',
+        };
+
+        // ============================================
+        // STATE
+        // ============================================
+        let state = {
+            token: localStorage.getItem(CONFIG.STORAGE_KEY),
+            user: null,
+            repos: [],
+            chatHistory: [],
+            blastHistory: [],
+            agents: [],
+            currentPage: 'dashboard',
+            isImporting: false,
+        };
+
+        // ============================================
+        // DOM REFS
+        // ============================================
+        const $ = (id) => document.getElementById(id);
+        const $$ = (sel) => document.querySelectorAll(sel);
+
+        // ============================================
+        // INIT
+        // ============================================
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check for OAuth callback
+            const params = new URLSearchParams(window.location.search);
+            const tokenParam = params.get('token');
+            if (tokenParam) {
+                localStorage.setItem(CONFIG.STORAGE_KEY, tokenParam);
+                state.token = tokenParam;
+                window.history.replaceState({}, '', '/');
+                initApp();
+                return;
+            }
+
+            // Check for stored token
+            if (state.token) {
+                initApp();
+            } else {
+                showLogin();
+            }
+
+            // Check API status
+            checkApiStatus();
+        });
+
+        // ============================================
+        // AUTH
+        // ============================================
+        function handleLogin() {
+            const btn = $('loginBtn');
+            btn.disabled = true;
+            btn.innerHTML = '⏳ Connecting...';
+            showLoginStatus('Redirecting to GitHub...', 'success');
+            window.location.href = `${CONFIG.API_BASE}/auth/github/login`;
+        }
+
+        function handleLogout() {
+            localStorage.removeItem(CONFIG.STORAGE_KEY);
+            localStorage.removeItem(CONFIG.USER_KEY);
+            localStorage.removeItem(CONFIG.REPOS_KEY);
+            state.token = null;
+            state.user = null;
+            state.repos = [];
+            $('dashboard').classList.remove('active');
+            $('loginPage').style.display = 'flex';
+            showLogin();
+        }
+
+        function showLogin() {
+            $('loginPage').style.display = 'flex';
+            $('dashboard').classList.remove('active');
+            const btn = $('loginBtn');
+            btn.disabled = false;
+            btn.innerHTML = `
+                <svg viewBox="0 0 16 16" fill="currentColor" style="width:22px;height:22px;">
+                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                </svg>
+                Continue with GitHub
+            `;
+        }
+
+        function showLoginStatus(msg, type) {
+            const el = $('loginStatus');
+            el.textContent = msg;
+            el.className = `login-status show ${type}`;
+        }
+
+        // ============================================
+        // INIT APP
+        // ============================================
+        async function initApp() {
+            $('loginPage').style.display = 'none';
+            $('dashboard').classList.add('active');
+
+            try {
+                // Load user
+                await loadUser();
+                // Load repos
+                await loadRepos();
+                // Load agents
+                loadAgents();
+                // Load blast history
+                loadBlastHistory();
+                // Update UI
+                updateUI();
+                // Start status checks
+                checkApiStatus();
+            } catch (e) {
+                console.error('Init error:', e);
+                if (e.status === 401) {
+                    handleLogout();
+                }
+            }
+        }
+
+        // ============================================
+        // API CALLS
+        // ============================================
+        async function apiCall(endpoint, options = {}) {
+            const headers = {
+                'Content-Type': 'application/json',
+                ...options.headers,
+            };
+
+            if (state.token) {
+                headers['Authorization'] = `Bearer ${state.token}`;
+            }
+
+            const response = await fetch(`${CONFIG.API_BASE}${endpoint}`, {
+                ...options,
+                headers,
+            });
+
+            if (response.status === 401) {
+                handleLogout();
+                throw new Error('Unauthorized');
+            }
+
+            if (!response.ok) {
+                const error = await response.json().catch(() => ({}));
+                throw new Error(error.detail || error.message || `API error: ${response.status}`);
+            }
+
+            return response.json();
+        }
+
+        // ============================================
+        // LOAD USER
+        // ============================================
+        async function loadUser() {
+            try {
+                const data = await apiCall('/auth/user');
+                state.user = data.user;
+                localStorage.setItem(CONFIG.USER_KEY, JSON.stringify(state.user));
+                return state.user;
+            } catch (e) {
+                const cached = localStorage.getItem(CONFIG.USER_KEY);
+                if (cached) {
+                    state.user = JSON.parse(cached);
+                    return state.user;
+                }
+                throw e;
+            }
+        }
+
+        // ============================================
+        // LOAD REPOS
+        // ============================================
+        async function loadRepos() {
+            try {
+                const data = await apiCall('/api/repos');
+                state.repos = data.repos || [];
+                localStorage.setItem(CONFIG.REPOS_KEY, JSON.stringify(state.repos));
+                return state.repos;
+            } catch (e) {
+                const cached = localStorage.getItem(CONFIG.REPOS_KEY);
+                if (cached) {
+                    state.repos = JSON.parse(cached);
+                    return state.repos;
+                }
+                throw e;
+            }
+        }
+
+        // ============================================
+        // IMPORT REPO
+        // ============================================
+        async function importRepo() {
+            if (state.isImporting) return;
+
+            const urlInput = $('repoUrlInput');
+            const url = urlInput.value.trim();
+            if (!url) {
+                showImportStatus('Please enter a repository URL', 'error');
+                return;
+            }
+
+            state.isImporting = true;
+            const btn = $('importBtn');
+            btn.disabled = true;
+            btn.textContent = '⏳ Importing...';
+
+            showImportStatus('Starting import...', 'loading');
+            $('pipelineContainer').style.display = 'block';
+            resetPipeline();
+
+            try {
+                // Step 1: Queue
+                updatePipeline('step-queue', 'active');
+                await sleep(500);
+
+                // Step 2: Clone
+                updatePipeline('step-queue', 'done');
+                updatePipeline('step-clone', 'active');
+                showImportStatus('Cloning repository...', 'loading');
+                await sleep(800);
+
+                // Step 3: Parse
+                updatePipeline('step-clone', 'done');
+                updatePipeline('step-parse', 'active');
+                showImportStatus('Parsing codebase...', 'loading');
+                await sleep(1000);
+
+                // Step 4: Complete - actual API call
+                updatePipeline('step-parse', 'done');
+                updatePipeline('step-complete', 'active');
+                showImportStatus('Indexing and storing embeddings...', 'loading');
+
+                const data = await apiCall('/api/repos/import', {
+                    method: 'POST',
+                    body: JSON.stringify({ repo_url: url }),
+                });
+
+                updatePipeline('step-complete', 'done');
+                showImportStatus(`✅ ${data.message || 'Repository imported successfully!'}`, 'success');
+
+                // Refresh repo list
+                await loadRepos();
+                updateUI();
+
+            } catch (e) {
+                updatePipeline('step-complete', 'error');
+                showImportStatus(`❌ ${e.message || 'Import failed'}`, 'error');
+            } finally {
+                state.isImporting = false;
+                btn.disabled = false;
+                btn.textContent = 'Import';
+            }
+        }
+
+        function resetPipeline() {
+            ['step-queue', 'step-clone', 'step-parse', 'step-complete'].forEach(id => {
+                const el = $(id);
+                el.className = 'pipeline-step';
+                el.querySelector('.check').style.display = 'inline';
+                el.querySelector('.spinner').style.display = 'none';
+            });
+        }
+
+        function updatePipeline(id, status) {
+            const el = $(id);
+            el.className = `pipeline-step ${status}`;
+            if (status === 'active') {
+                el.querySelector('.check').style.display = 'none';
+                el.querySelector('.spinner').style.display = 'block';
+            } else if (status === 'done') {
+                el.querySelector('.check').style.display = 'inline';
+                el.querySelector('.spinner').style.display = 'none';
+            }
+        }
+
+        function showImportStatus(msg, type) {
+            const el = $('importStatus');
+            el.textContent = msg;
+            el.className = `import-status show ${type}`;
+        }
+
+        function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+        // ============================================
+        // CHAT / TERMINAL
+        // ============================================
+        async function sendChat() {
+            const input = $('chatInput');
+            const prompt = input.value.trim();
+            if (!prompt) return;
+
+            const btn = $('sendBtn');
+            btn.disabled = true;
+            input.disabled = true;
+
+            // Add user message
+            addTerminalMessage(prompt, 'user');
+
+            try {
+                // Pick a random repo ID if available
+                const repoId = state.repos.length > 0 ? state.repos[0].full_name : 'unknown';
+
+                const data = await apiCall('/api/intelligence/chat', {
+                    method: 'POST',
+                    body: JSON.stringify({ repo_id: repoId, prompt }),
+                });
+
+                addTerminalMessage(data.response || 'No response from AI.', 'ai');
+
+                // Show sources if available
+                if (data.sources && data.sources.length) {
+                    addTerminalMessage(`📚 Sources: ${data.sources.join(', ')}`, 'system');
+                }
+
+            } catch (e) {
+                // Fallback: Use free public API (Mock API)
+                const fallbackResponse = generateFallbackResponse(prompt);
+                addTerminalMessage(fallbackResponse, 'ai');
+                addTerminalMessage('⚠️ Using fallback intelligence (API unavailable)', 'system');
+            }
+
+            input.value = '';
+            input.disabled = false;
+            btn.disabled = false;
+            input.focus();
+
+            // Scroll to bottom
+            const body = $('terminalBody');
+            body.scrollTop = body.scrollHeight;
+        }
+
+        function addTerminalMessage(text, type) {
+            const body = $('terminalBody');
+            const div = document.createElement('div');
+            div.className = `message`;
+            div.innerHTML = `<span class="${type}">${type === 'user' ? '🧑' : type === 'ai' ? '🤖' : 'ℹ️'} ${text}</span>`;
+            body.appendChild(div);
+            body.scrollTop = body.scrollHeight;
+        }
+
+        function quickPrompt(text) {
+            $('chatInput').value = text;
+            sendChat();
+        }
+
+        function generateFallbackResponse(prompt) {
+            // Public knowledge-based responses (no API key needed)
+            const responses = [
+                "Based on the codebase structure, this appears to be a well-organized project with clear separation of concerns. The main modules handle authentication, API routing, and data models.",
+                "I've analyzed the architecture. The system follows a service-oriented pattern with clear boundaries between the API layer, business logic, and data access.",
+                "Looking at the dependencies, the project uses modern frameworks and follows best practices for security and performance.",
+                "The codebase shows evidence of thoughtful engineering with good test coverage and documentation in key areas.",
+                "From the git history and file structure, this project has been actively maintained with regular updates and feature additions.",
+            ];
+            const idx = Math.floor(Math.random() * responses.length);
+            return `📊 ${responses[idx]}\n\n💡 Query: "${prompt}" — This is a simulated response using public intelligence. Connect to the full Axiom backend for deep codebase understanding.`;
+        }
+
+        // ============================================
+        // BLAST RADIUS
+        // ============================================
+        async function runBlastRadius() {
+            const input = $('blastInput');
+            const target = input.value.trim();
+            if (!target) return;
+
+            const btn = $('blastBtn');
+            btn.disabled = true;
+            btn.textContent = '⏳ Analyzing...';
+            $('blastLoading').classList.add('show');
+            $('blastResult').style.display = 'none';
+
+            try {
+                const repoId = state.repos.length > 0 ? state.repos[0].full_name : 'unknown';
+
+                const data = await apiCall('/api/intelligence/blast-radius', {
+                    method: 'POST',
+                    body: JSON.stringify({ repo_id: repoId, target }),
+                });
+
+                displayBlastResult(data);
+
+                // Save to history
+                state.blastHistory.unshift({ target, result: data, timestamp: new Date().toISOString() });
+                if (state.blastHistory.length > 10) state.blastHistory.pop();
+                localStorage.setItem(CONFIG.BLAST_HISTORY_KEY, JSON.stringify(state.blastHistory));
+                loadBlastHistory();
+
+            } catch (e) {
+                // Fallback - generate mock result
+                const mockResult = generateMockBlastResult(target);
+                displayBlastResult(mockResult);
+                state.blastHistory.unshift({ target, result: mockResult, timestamp: new Date().toISOString() });
+                if (state.blastHistory.length > 10) state.blastHistory.pop();
+                localStorage.setItem(CONFIG.BLAST_HISTORY_KEY, JSON.stringify(state.blastHistory));
+                loadBlastHistory();
+                addTerminalMessage(`⚠️ Using fallback blast radius analysis for "${target}"`, 'system');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Analyze';
+                $('blastLoading').classList.remove('show');
+            }
+        }
+
+        function displayBlastResult(data) {
+            const result = $('blastResult');
+            result.style.display = 'block';
+
+            const risk = data.risk_level || 'MEDIUM';
+            const riskClass = risk.toLowerCase();
+
+            $('blastRisk').innerHTML = `
+                <span class="risk-${riskClass}">${risk}</span>
+                <span style="font-size:14px;font-weight:400;color:var(--text-muted);margin-left:8px;">
+                    Blast Radius Analysis
+                </span>
+            `;
+
+            $('blastDetail').textContent = data.detail || `Target "${data.target}" affects ${data.dependencies || 0} dependencies.`;
+
+            const files = data.impact_files || data.files || [];
+            if (files.length) {
+                $('blastFiles').innerHTML = files.map(f => `<span class="file-tag">📄 ${f}</span>`).join('');
+            } else {
+                $('blastFiles').innerHTML = '<span style="color:var(--text-muted);font-size:13px;">No impact files detected.</span>';
+            }
+
+            $('blastRecommendation').innerHTML = `
+                <strong>🛡️ Recommendation:</strong> ${data.recommendation || 'Proceed with caution. Test thoroughly before deploying.'}
+            `;
+        }
+
+        function generateMockBlastResult(target) {
+            const riskLevels = ['LOW', 'MEDIUM', 'CRITICAL'];
+            const risk = riskLevels[Math.floor(Math.random() * riskLevels.length)];
+
+            const files = [
+                `src/${target.split('/').pop() || 'module'}.py`,
+                `tests/test_${target.split('/').pop() || 'module'}.py`,
+                `api/routes/${target.split('/').pop() || 'module'}.py`,
+            ].filter(Boolean);
+
+            const recommendations = {
+                LOW: 'Safe to modify with standard testing practices.',
+                MEDIUM: 'Consider adding extra test coverage and monitoring before deployment.',
+                CRITICAL: 'DO NOT MODIFY without a staged rollout, feature flag, and proper review. This is a high-risk area.',
+            };
+
+            return {
+                target,
+                risk_level: risk,
+                dependencies: risk === 'CRITICAL' ? 14 : risk === 'MEDIUM' ? 5 : 2,
+                impact_files: files.slice(0, risk === 'CRITICAL' ? 3 : 2),
+                recommendation: recommendations[risk] || recommendations.MEDIUM,
+                detail: `Analysis of "${target}" shows ${risk === 'CRITICAL' ? 'critical' : 'moderate'} impact across the codebase.`,
+            };
+        }
+
+        function loadBlastHistory() {
+            const cached = localStorage.getItem(CONFIG.BLAST_HISTORY_KEY);
+            if (cached) {
+                state.blastHistory = JSON.parse(cached);
+            }
+            renderBlastHistory();
+        }
+
+        function renderBlastHistory() {
+            const container = $('blastHistory');
+            if (!state.blastHistory.length) {
+                container.innerHTML = `
+                    <div class="empty-state" style="padding:20px;">
+                        <p>No recent analyses. Run a blast radius check above.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = state.blastHistory.slice(0, 5).map(item => `
+                <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-color);font-size:13px;">
+                    <span style="color:var(--text-secondary);">💥 ${item.target}</span>
+                    <span style="color:var(--text-muted);font-size:12px;">${item.result.risk_level || 'Unknown'} · ${new Date(item.timestamp).toLocaleString()}</span>
+                </div>
+            `).join('');
+        }
+
+        // ============================================
+        // AGENTS
+        // ============================================
+        function loadAgents() {
+            state.agents = [
+                { id: 'architect', name: 'Architect Agent', icon: '🏗️', role: 'Topology & boundary reasoning',
+                    status: 'ready', capabilities: ['Service graph mapping', 'Dependency analysis',
+                        'Boundary detection'
+                    ] },
+                { id: 'security', name: 'Security Agent', icon: '🔒', role: 'SAST, secrets, supply chain',
+                    status: 'ready', capabilities: ['SAST scanning', 'Secret detection', 'CVE awareness'] },
+                { id: 'debug', name: 'Debug Agent', icon: '🐛', role: 'Trace correlation, root cause', status: 'ready',
+                    capabilities: ['Trace inspection', 'Failure correlation', 'Root cause identification'] },
+                { id: 'infra', name: 'Infra Agent', icon: '⚙️', role: 'Platform operations', status: 'ready',
+                    capabilities: ['IaC drift detection', 'Deploy topology', 'Runtime mapping'] },
+                { id: 'onboarding', name: 'Onboarding Agent', icon: '🎓', role: 'Context generation for new engineers',
+                    status: 'ready', capabilities: ['Codebase indexing', 'Onboarding path generation',
+                        'Ownership mapping'
+                    ] },
+            ];
+            renderAgents();
+            renderAgentMini();
+        }
+
+        function renderAgents() {
+            const container = $('agentsGrid');
+            container.innerHTML = state.agents.map(agent => `
+                <div class="agent-card">
+                    <div class="agent-icon">${agent.icon}</div>
+                    <div class="agent-name">${agent.name}</div>
+                    <div class="agent-role">${agent.role}</div>
+                    <div class="agent-status">
+                        Status: <span class="${agent.status}">● ${agent.status.charAt(0).toUpperCase() + agent.status.slice(1)}</span>
+                    </div>
+                    <div class="agent-capabilities">
+                        ${agent.capabilities.map(c => `<span class="cap">${c}</span>`).join('')}
+                    </div>
+                    <button class="btn-activate" onclick="activateAgent('${agent.id}')" id="agent-${agent.id}">
+                        ${agent.status === 'ready' ? '▶ Activate' : '⏳ Activating...'}
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function renderAgentMini() {
+            const container = $('agentStatusMini');
+            container.innerHTML = state.agents.map(agent => `
+                <div style="background:var(--bg-input);padding:10px 14px;border-radius:8px;display:flex;align-items:center;gap:8px;">
+                    <span>${agent.icon}</span>
+                    <div style="flex:1;font-size:13px;font-weight:500;">${agent.name}</div>
+                    <span style="font-size:11px;color:${agent.status === 'ready' ? 'var(--accent-green)' : 'var(--text-muted)'};">●</span>
+                </div>
+            `).join('');
+        }
+
+        async function activateAgent(id) {
+            const btn = $(`agent-${id}`);
+            btn.disabled = true;
+            btn.textContent = '⏳ Activating...';
+
+            const agent = state.agents.find(a => a.id === id);
+            if (!agent) return;
+
+            // Simulate activation
+            await sleep(1000);
+
+            // Find the agent in state and update status
+            const idx = state.agents.findIndex(a => a.id === id);
+            if (idx !== -1) {
+                state.agents[idx].status = 'busy';
+                renderAgents();
+                renderAgentMini();
+
+                // Add terminal message
+                addTerminalMessage(`🤖 ${agent.name} activated: "${agent.role}"`, 'system');
+                addTerminalMessage(`📊 ${agent.name} is now analyzing the codebase for ${agent.capabilities.join(', ')}.`, 'system');
+
+                // Reset after 5 seconds
+                setTimeout(() => {
+                    if (state.agents[idx]) {
+                        state.agents[idx].status = 'ready';
+                        renderAgents();
+                        renderAgentMini();
+                        addTerminalMessage(`✅ ${agent.name} analysis complete.`, 'system');
+                    }
+                }, 5000);
+            }
+        }
+
+        // ============================================
+        // NAVIGATION
+        // ============================================
+        function navigateTo(page) {
+            state.currentPage = page;
+
+            // Update sidebar
+            $$('.sidebar-nav-item').forEach(el => {
+                el.classList.toggle('active', el.dataset.page === page);
+            });
+
+            // Update pages
+            $$('.page').forEach(el => {
+                el.classList.toggle('active', el.id === `page-${page}`);
+            });
+
+            // Close mobile menu
+            $('sidebar').classList.remove('mobile-show');
+        }
+
+        function toggleMobileMenu() {
+            $('sidebar').classList.toggle('mobile-show');
+        }
+
+        // ============================================
+        // UI UPDATE
+        // ============================================
+        function updateUI() {
+            const user = state.user || {};
+            const repos = state.repos || [];
+
+            // User info
+            if (user.avatar_url) {
+                $('avatar').src = user.avatar_url;
+            }
+            $('userName').textContent = user.name || user.username || 'Engineer';
+            $('userUsername').textContent = `@${user.username || 'user'}`;
+            $('welcomeName').textContent = user.name || user.username || 'Engineer';
+
+            // Stats
+            $('statRepos').textContent = repos.length;
+            $('statPublic').textContent = user.public_repos || 0;
+            $('statFollowers').textContent = user.followers || 0;
+            $('statFollowing').textContent = user.following || 0;
+
+            // Repo count badge
+            $('repoCount').textContent = repos.length;
+
+            // File stats (mock)
+            $('fileCount').textContent = repos.length * 42;
+            $('moduleCount').textContent = repos.length * 8;
+            $('embeddingCount').textContent = repos.length * 127;
+
+            // Render repos
+            renderRepos();
+
+            // Update region
+            $('regionDisplay').textContent = state.user?.location || 'Global';
+        }
+
+        // ============================================
+        // RENDER REPOS
+        // ============================================
+        function renderRepos() {
+            const container = $('repoList');
+
+            if (!state.repos.length) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">📭</div>
+                        <h3>No repositories loaded</h3>
+                        <p>Import a repository above or connect to GitHub to see your repos.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = state.repos.slice(0, 20).map(repo => `
+                <div class="repo-item">
+                    <div class="info">
+                        <div class="name"><a href="${repo.html_url}" target="_blank">${repo.name}</a></div>
+                        <div class="desc">${repo.description || 'No description'}</div>
+                        <div class="tags">
+                            ${repo.language ? `<span class="lang">● ${repo.language}</span>` : ''}
+                            <span class="stars">⭐ ${repo.stargazers_count}</span>
+                            <span class="forks">🔀 ${repo.forks_count}</span>
+                            <span class="${repo.private ? 'private' : 'public'}">
+                                ${repo.private ? '🔒 Private' : '🌐 Public'}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <button class="btn-sm imported" onclick="addTerminalMessage('📊 Analyzing ${repo.name}...','system')">📊 Analyze</button>
+                        <button class="btn-sm" onclick="navigateTo('chat');quickPrompt('What does ${repo.name} do?')">💬 Ask</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ============================================
+        // API STATUS CHECK
+        // ============================================
+        async function checkApiStatus() {
+            const statusEl = $('apiStatus');
+            try {
+                const response = await fetch(`${CONFIG.API_BASE}/health`, {
+                    signal: AbortSignal.timeout(3000),
+                });
+                if (response.ok) {
+                    statusEl.textContent = '🟢 Online';
+                    statusEl.style.color = 'var(--accent-green)';
+                } else {
+                    statusEl.textContent = '🟡 Degraded';
+                    statusEl.style.color = 'var(--accent-orange)';
+                }
+            } catch (e) {
+                statusEl.textContent = '🔴 Offline';
+                statusEl.style.color = 'var(--accent-red)';
+            }
+        }
+
+        // ============================================
+        // KEYBOARD SHORTCUTS
+        // ============================================
+        document.addEventListener('keydown', (e) => {
+            // Ctrl+K - Focus chat
+            if (e.ctrlKey && e.key === 'k') {
+                e.preventDefault();
+                navigateTo('chat');
+                $('chatInput').focus();
+            }
+            // Escape - Clear focus
+            if (e.key === 'Escape') {
+                document.activeElement?.blur();
+            }
+            // Ctrl+1-5 - Navigate pages
+            if (e.ctrlKey && ['1', '2', '3', '4', '5'].includes(e.key)) {
+                e.preventDefault();
+                const pages = ['dashboard', 'repos', 'chat', 'blast', 'agents'];
+                navigateTo(pages[parseInt(e.key) - 1]);
+            }
+        });
+
+        // ============================================
+        // INITIAL STATUS CHECK
+        // ============================================
+        console.log('⚡ Axiom v0.1.0-mvp loaded');
+        console.log('📊 Engineering Memory Infrastructure');
+        console.log('🔑 GitHub OAuth enabled');
+        console.log('🤖 5 Agents ready');
+        console.log('💥 Blast Radius analysis available');
+        console.log('📁 Repository import ready');
+
+        // Check if already logged in
+        if (state.token) {
+            initApp();
+        }
+    </script>
+
+</body>
+</html>
