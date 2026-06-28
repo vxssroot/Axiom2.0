@@ -6,6 +6,10 @@
     <title>Axiom — Engineering Memory Infrastructure</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* ============================================
+           COMPLETE CSS — Production Ready v1.0.0
+           Built by vxssroot · Nigeria 🇳🇬
+           ============================================ */
         * {
             margin: 0;
             padding: 0;
@@ -43,88 +47,169 @@
         ::-webkit-scrollbar-track { background: var(--bg-secondary); }
         ::-webkit-scrollbar-thumb { background: var(--accent-purple); border-radius: 3px; }
 
-        /* Login */
-        .login-page {
+        /* ============================================
+           WELCOME PAGE
+           ============================================ */
+        .welcome-page {
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             padding: 20px;
             background: radial-gradient(ellipse at 50% 30%, #1a1a2e 0%, #0a0a0a 70%);
+            position: relative;
+            overflow: hidden;
         }
 
-        .login-card {
+        .welcome-page::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 20%, rgba(139, 92, 246, 0.03) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .welcome-card {
             background: var(--bg-card);
-            padding: 48px 40px;
-            border-radius: 16px;
+            padding: 60px 48px;
+            border-radius: 20px;
             border: 1px solid var(--border-color);
-            max-width: 420px;
+            max-width: 600px;
             width: 100%;
             text-align: center;
+            position: relative;
+            z-index: 1;
+            animation: fadeUp 0.8s ease;
         }
 
-        .login-card .logo { font-size: 56px; margin-bottom: 8px; display: block; }
-        .login-card h1 {
-            font-size: 40px;
-            font-weight: 800;
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .welcome-card .logo {
+            font-size: 64px;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .welcome-card h1 {
+            font-size: 48px;
+            font-weight: 900;
             background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            letter-spacing: -2px;
             margin-bottom: 4px;
-            letter-spacing: -1px;
         }
-        .login-card .tagline {
+
+        .welcome-card .tagline {
+            font-size: 14px;
             color: var(--text-secondary);
-            font-size: 13px;
             font-weight: 500;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 4px;
+            letter-spacing: 3px;
+            margin-bottom: 8px;
         }
-        .login-card .subtitle { color: var(--text-muted); font-size: 15px; margin-bottom: 4px; }
-        .login-card .description { color: var(--text-muted); font-size: 13px; margin-bottom: 28px; line-height: 1.7; }
-        .login-card .features-mini {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 8px;
-            margin-bottom: 24px;
-            padding: 12px;
-            background: var(--bg-secondary);
-            border-radius: 10px;
-        }
-        .login-card .features-mini span { font-size: 11px; color: var(--text-secondary); font-weight: 500; }
 
-        .btn-github {
-            width: 100%;
-            padding: 14px 20px;
-            background: #ffffff;
-            color: #000000;
-            border: none;
-            border-radius: 10px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
+        .welcome-card .mission {
+            font-size: 16px;
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 32px;
+            max-width: 460px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .welcome-card .badges {
             display: flex;
-            align-items: center;
             justify-content: center;
             gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 32px;
+        }
+
+        .welcome-card .badge {
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+        }
+
+        .welcome-card .badge.production {
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+        }
+
+        .welcome-card .badge.nigeria {
+            border-color: var(--accent-purple);
+            color: var(--accent-purple);
+        }
+
+        .btn-continue {
+            padding: 16px 48px;
+            background: var(--accent-purple);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
             transition: all 0.3s;
             font-family: var(--font-inter);
         }
-        .btn-github:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3); }
-        .btn-github:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
-        .btn-github svg { width: 22px; height: 22px; flex-shrink: 0; }
-        .login-footer { color: var(--text-muted); font-size: 11px; margin-top: 20px; }
-        .login-footer a { color: var(--accent-purple); text-decoration: none; }
 
-        .login-status { margin-top: 12px; padding: 8px 12px; border-radius: 8px; font-size: 13px; display: none; }
-        .login-status.show { display: block; }
-        .login-status.error { background: rgba(239, 68, 68, 0.1); color: var(--accent-red); border: 1px solid rgba(239, 68, 68, 0.2); }
-        .login-status.success { background: rgba(34, 197, 94, 0.1); color: var(--accent-green); border: 1px solid rgba(34, 197, 94, 0.2); }
+        .btn-continue:hover {
+            background: #7c3aed;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(139, 92, 246, 0.3);
+        }
 
-        /* Dashboard */
-        .dashboard { display: none; min-height: 100vh; background: var(--bg-primary); }
-        .dashboard.active { display: block; }
+        .welcome-card .footer {
+            margin-top: 32px;
+            font-size: 12px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .welcome-card .footer .built-by {
+            color: var(--text-secondary);
+        }
+
+        .welcome-card .footer .built-by strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .welcome-card .footer .built-by .nigeria {
+            color: var(--accent-purple);
+        }
+
+        /* ============================================
+           DASHBOARD
+           ============================================ */
+        .dashboard {
+            display: none;
+            min-height: 100vh;
+            background: var(--bg-primary);
+        }
+
+        .dashboard.active {
+            display: block;
+        }
 
         .header {
             position: sticky;
@@ -140,7 +225,13 @@
             flex-wrap: wrap;
             gap: 12px;
         }
-        .header-left { display: flex; align-items: center; gap: 16px; }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
         .header-left .logo-text {
             font-size: 20px;
             font-weight: 800;
@@ -149,8 +240,24 @@
             -webkit-text-fill-color: transparent;
             letter-spacing: -0.5px;
         }
-        .header-left .version { font-size: 10px; color: var(--text-muted); background: var(--bg-secondary); padding: 2px 8px; border-radius: 20px; border: 1px solid var(--border-color); font-weight: 600; }
-        .header-right { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+
+        .header-left .version {
+            font-size: 10px;
+            color: var(--text-muted);
+            background: var(--bg-secondary);
+            padding: 2px 8px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            font-weight: 600;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
         .user-profile {
             display: flex;
             align-items: center;
@@ -160,13 +267,50 @@
             border-radius: 50px;
             border: 1px solid var(--border-color);
         }
-        .user-profile img { width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--accent-purple); }
-        .user-profile .name { font-size: 13px; font-weight: 600; }
-        .user-profile .username { font-size: 11px; color: var(--text-muted); }
-        .btn-logout { padding: 6px 16px; background: transparent; border: 1px solid var(--border-color); color: var(--text-secondary); border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 500; transition: all 0.2s; font-family: var(--font-inter); }
-        .btn-logout:hover { background: rgba(239, 68, 68, 0.1); border-color: var(--accent-red); color: var(--accent-red); }
 
-        .main-layout { display: grid; grid-template-columns: 240px 1fr; gap: 0; min-height: calc(100vh - 70px); }
+        .user-profile img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-purple);
+        }
+
+        .user-profile .name {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .user-profile .username {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .btn-logout {
+            padding: 6px 16px;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.2s;
+            font-family: var(--font-inter);
+        }
+
+        .btn-logout:hover {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: var(--accent-red);
+            color: var(--accent-red);
+        }
+
+        .main-layout {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 0;
+            min-height: calc(100vh - 70px);
+        }
+
         .sidebar {
             background: var(--bg-secondary);
             border-right: 1px solid var(--border-color);
@@ -176,8 +320,20 @@
             top: 70px;
             height: calc(100vh - 70px);
         }
-        .sidebar-section { margin-bottom: 24px; }
-        .sidebar-section .section-title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 12px; }
+
+        .sidebar-section {
+            margin-bottom: 24px;
+        }
+
+        .sidebar-section .section-title {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
         .sidebar-nav-item {
             display: flex;
             align-items: center;
@@ -192,260 +348,412 @@
             margin-bottom: 2px;
             border: 1px solid transparent;
         }
-        .sidebar-nav-item:hover { background: var(--bg-card); color: var(--text-primary); border-color: var(--border-color); }
-        .sidebar-nav-item.active { background: rgba(139, 92, 246, 0.08); color: var(--accent-purple); border-color: rgba(139, 92, 246, 0.2); }
-        .sidebar-nav-item .icon { font-size: 16px; width: 24px; text-align: center; }
-        .sidebar-nav-item .badge { margin-left: auto; font-size: 10px; background: var(--accent-purple); color: white; padding: 1px 8px; border-radius: 20px; font-weight: 600; }
-        .sidebar-nav-item .badge.green { background: var(--accent-green); }
-        .sidebar-nav-item .badge.orange { background: var(--accent-orange); }
-        .sidebar-nav-item .badge.red { background: var(--accent-red); }
 
-        .sidebar-status { padding: 10px 14px; border-radius: 8px; background: var(--bg-card); border: 1px solid var(--border-color); font-size: 12px; color: var(--text-secondary); }
-        .sidebar-status .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 8px; }
-        .sidebar-status .dot.online { background: var(--accent-green); }
-        .sidebar-status .dot.offline { background: var(--accent-red); }
-
-        .content { padding: 24px 32px; overflow-y: auto; max-height: calc(100vh - 70px); }
-        .page { display: none; animation: fadeIn 0.3s ease; }
-        .page.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-
-        .page-header { margin-bottom: 24px; }
-        .page-header h2 { font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
-        .page-header p { color: var(--text-muted); font-size: 14px; margin-top: 4px; }
-
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 24px; }
-        .stat-card { background: var(--bg-card); padding: 18px 20px; border-radius: 10px; border: 1px solid var(--border-color); transition: border-color 0.3s; }
-        .stat-card:hover { border-color: var(--accent-purple); }
-        .stat-card .label { font-size: 12px; color: var(--text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
-        .stat-card .value { font-size: 28px; font-weight: 700; margin-top: 4px; letter-spacing: -0.5px; }
-        .stat-card .value.purple { color: var(--accent-purple); }
-        .stat-card .value.blue { color: var(--accent-blue); }
-        .stat-card .value.green { color: var(--accent-green); }
-        .stat-card .value.orange { color: var(--accent-orange); }
-        .stat-card .value.red { color: var(--accent-red); }
-
-        .card { background: var(--bg-card); border-radius: 10px; border: 1px solid var(--border-color); padding: 20px 24px; margin-bottom: 16px; }
-        .card-title { font-size: 15px; font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
-        .card-subtitle { font-size: 13px; color: var(--text-muted); }
-
-        .input-group { display: flex; gap: 12px; flex-wrap: wrap; }
-        .input-group input { flex: 1; min-width: 200px; padding: 12px 16px; background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-primary); font-size: 14px; font-family: var(--font-inter); transition: border-color 0.3s; outline: none; }
-        .input-group input:focus { border-color: var(--accent-purple); }
-        .input-group input::placeholder { color: var(--text-muted); }
-
-        .btn-primary { padding: 12px 24px; background: var(--accent-purple); color: white; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s; font-family: var(--font-inter); white-space: nowrap; }
-        .btn-primary:hover { background: #7c3aed; transform: translateY(-1px); }
-        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
-
-        .btn-secondary { padding: 10px 20px; background: var(--bg-input); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.2s; font-family: var(--font-inter); }
-        .btn-secondary:hover { background: var(--border-color); }
-
-        .btn-sm { padding: 4px 12px; font-size: 12px; border-radius: 6px; border: 1px solid var(--border-color); background: transparent; color: var(--text-secondary); cursor: pointer; transition: all 0.2s; font-family: var(--font-inter); }
-        .btn-sm:hover { background: var(--bg-card); border-color: var(--accent-purple); color: var(--accent-purple); }
-
-        .repo-item { display: flex; justify-content: space-between; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--border-color); gap: 12px; flex-wrap: wrap; }
-        .repo-item:last-child { border-bottom: none; }
-        .repo-item .info .name { font-weight: 600; font-size: 15px; }
-        .repo-item .info .name a { color: var(--text-primary); text-decoration: none; }
-        .repo-item .info .name a:hover { color: var(--accent-purple); }
-        .repo-item .info .desc { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
-        .repo-item .info .tags { display: flex; gap: 12px; font-size: 12px; color: var(--text-muted); margin-top: 6px; flex-wrap: wrap; }
-        .repo-item .info .tags .lang { color: var(--accent-green); }
-        .repo-item .info .tags .stars { color: var(--accent-yellow); }
-        .repo-item .info .tags .forks { color: var(--accent-blue); }
-        .repo-item .info .tags .private { color: var(--accent-orange); }
-        .repo-item .info .tags .public { color: var(--accent-green); }
-        .repo-item .info .tags .risk { color: var(--accent-red); font-weight: 600; }
-
-        .terminal-container { background: #0a0a0a; border-radius: 10px; border: 1px solid var(--border-color); overflow: hidden; font-family: var(--font-mono); }
-        .terminal-header { display: flex; align-items: center; gap: 8px; padding: 10px 16px; background: var(--bg-secondary); border-bottom: 1px solid var(--border-color); }
-        .terminal-header .dot { width: 10px; height: 10px; border-radius: 50%; }
-        .terminal-header .dot.red { background: #ef4444; }
-        .terminal-header .dot.yellow { background: #eab308; }
-        .terminal-header .dot.green { background: #22c55e; }
-        .terminal-header .title { font-size: 12px; color: var(--text-muted); margin-left: 8px; font-family: var(--font-inter); }
-
-        .terminal-body { padding: 16px; max-height: 400px; overflow-y: auto; }
-        .terminal-body .message { margin-bottom: 8px; font-size: 13px; line-height: 1.7; padding: 4px 0; }
-        .terminal-body .message .user { color: var(--accent-blue); }
-        .terminal-body .message .ai { color: var(--accent-purple); }
-        .terminal-body .message .system { color: var(--text-muted); font-style: italic; }
-
-        .terminal-input-row { display: flex; gap: 12px; padding: 12px 16px; border-top: 1px solid var(--border-color); background: var(--bg-secondary); }
-        .terminal-input-row input { flex: 1; padding: 10px 14px; background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-primary); font-family: var(--font-mono); font-size: 13px; outline: none; transition: border-color 0.3s; }
-        .terminal-input-row input:focus { border-color: var(--accent-purple); }
-        .terminal-input-row input::placeholder { color: var(--text-muted); }
-        .terminal-input-row .btn-send { padding: 10px 20px; background: var(--accent-purple); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-family: var(--font-inter); transition: all 0.2s; }
-        .terminal-input-row .btn-send:hover { background: #7c3aed; }
-        .terminal-input-row .btn-send:disabled { opacity: 0.5; cursor: not-allowed; }
-
-        .blast-result { margin-top: 16px; padding: 16px 20px; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-secondary); display: none; }
-        .blast-result.show { display: block; }
-        .blast-result .risk-critical { color: var(--accent-red); font-weight: 700; font-size: 20px; }
-        .blast-result .risk-medium { color: var(--accent-orange); font-weight: 700; font-size: 20px; }
-        .blast-result .risk-low { color: var(--accent-green); font-weight: 700; font-size: 20px; }
-        .blast-result .detail { margin-top: 8px; font-size: 14px; color: var(--text-secondary); }
-        .blast-result .files-list { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
-        .blast-result .files-list .file-tag { background: var(--bg-input); padding: 2px 10px; border-radius: 20px; font-size: 12px; font-family: var(--font-mono); color: var(--text-secondary); }
-        .blast-result .recommendation { margin-top: 12px; padding: 12px 16px; background: rgba(139, 92, 246, 0.05); border-left: 3px solid var(--accent-purple); border-radius: 6px; font-size: 14px; color: var(--text-secondary); }
-
-        .agents-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
-        .agent-card { background: var(--bg-card); border-radius: 10px; border: 1px solid var(--border-color); padding: 18px 20px; transition: all 0.3s; }
-        .agent-card:hover { border-color: var(--accent-purple); }
-        .agent-card .agent-icon { font-size: 28px; margin-bottom: 8px; }
-        .agent-card .agent-name { font-weight: 600; font-size: 15px; }
-        .agent-card .agent-role { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
-        .agent-card .agent-status { margin-top: 10px; font-size: 12px; font-weight: 500; }
-        .agent-card .agent-status .ready { color: var(--accent-green); }
-        .agent-card .agent-status .busy { color: var(--accent-orange); }
-        .agent-card .agent-capabilities { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 4px; }
-        .agent-card .agent-capabilities .cap { font-size: 10px; background: var(--bg-input); padding: 2px 8px; border-radius: 20px; color: var(--text-muted); }
-        .agent-card .btn-activate { margin-top: 12px; width: 100%; padding: 8px; background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-secondary); font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.2s; font-family: var(--font-inter); }
-        .agent-card .btn-activate:hover { background: var(--accent-purple); color: white; border-color: var(--accent-purple); }
-        .agent-card .btn-activate:disabled { opacity: 0.5; cursor: not-allowed; }
-
-        .empty-state { text-align: center; padding: 40px 20px; color: var(--text-muted); }
-        .empty-state .icon { font-size: 48px; margin-bottom: 12px; opacity: 0.5; }
-        .empty-state h3 { color: var(--text-secondary); font-weight: 600; font-size: 18px; }
-        .empty-state p { font-size: 14px; max-width: 400px; margin: 4px auto 0; }
-
-        .quick-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
-
-        .mobile-menu-btn { display: none; background: none; border: none; color: var(--text-primary); font-size: 24px; cursor: pointer; padding: 4px; }
-
-        /* Knowledge Graph */
-        .graph-container {
-            width: 100%;
-            height: 500px;
-            background: var(--bg-secondary);
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
-            position: relative;
-            overflow: hidden;
+        .sidebar-nav-item:hover {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border-color: var(--border-color);
         }
-        .graph-container canvas {
-            width: 100%;
-            height: 100%;
+
+        .sidebar-nav-item.active {
+            background: rgba(139, 92, 246, 0.08);
+            color: var(--accent-purple);
+            border-color: rgba(139, 92, 246, 0.2);
+        }
+
+        .sidebar-nav-item .icon {
+            font-size: 16px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .sidebar-nav-item .badge {
+            margin-left: auto;
+            font-size: 10px;
+            background: var(--accent-purple);
+            color: white;
+            padding: 1px 8px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .sidebar-nav-item .badge.green {
+            background: var(--accent-green);
+        }
+        .sidebar-nav-item .badge.orange {
+            background: var(--accent-orange);
+        }
+        .sidebar-nav-item .badge.red {
+            background: var(--accent-red);
+        }
+
+        .sidebar-status {
+            padding: 10px 14px;
+            border-radius: 8px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .sidebar-status .dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .sidebar-status .dot.online {
+            background: var(--accent-green);
+        }
+
+        .sidebar-footer {
+            margin-top: 16px;
+            padding: 12px 14px;
+            border-radius: 8px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            font-size: 10px;
+            color: var(--text-muted);
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        .sidebar-footer .built-by {
+            color: var(--text-secondary);
+        }
+
+        .sidebar-footer .built-by strong {
+            color: var(--text-primary);
+        }
+
+        .sidebar-footer .nigeria {
+            color: var(--accent-purple);
+        }
+
+        .content {
+            padding: 24px 32px;
+            overflow-y: auto;
+            max-height: calc(100vh - 70px);
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .page.active {
             display: block;
         }
-        .graph-container .graph-overlay {
-            position: absolute;
-            bottom: 16px;
-            left: 50%;
-            transform: translateX(-50%);
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page-header {
+            margin-bottom: 24px;
+        }
+
+        .page-header h2 {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .page-header p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            padding: 18px 20px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            transition: border-color 0.3s;
+        }
+
+        .stat-card:hover {
+            border-color: var(--accent-purple);
+        }
+
+        .stat-card .label {
             font-size: 12px;
             color: var(--text-muted);
-            background: rgba(0,0,0,0.8);
-            padding: 6px 16px;
-            border-radius: 20px;
-            border: 1px solid var(--border-color);
-            pointer-events: none;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
-        .graph-node { cursor: pointer; transition: all 0.3s; }
-        .graph-node:hover { filter: brightness(1.3); }
-        .graph-label { font-size: 11px; fill: var(--text-secondary); pointer-events: none; }
-        .graph-edge { stroke: var(--border-color); stroke-width: 1.5; opacity: 0.5; }
-        .graph-edge.highlight { stroke: var(--accent-purple); opacity: 1; stroke-width: 2.5; }
 
-        /* PR Intelligence */
-        .pr-item {
-            padding: 12px 16px;
-            border-radius: 8px;
+        .stat-card .value {
+            font-size: 28px;
+            font-weight: 700;
+            margin-top: 4px;
+            letter-spacing: -0.5px;
+        }
+
+        .stat-card .value.purple {
+            color: var(--accent-purple);
+        }
+        .stat-card .value.blue {
+            color: var(--accent-blue);
+        }
+        .stat-card .value.green {
+            color: var(--accent-green);
+        }
+        .stat-card .value.orange {
+            color: var(--accent-orange);
+        }
+        .stat-card .value.red {
+            color: var(--accent-red);
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: 10px;
             border: 1px solid var(--border-color);
+            padding: 20px 24px;
+            margin-bottom: 16px;
+        }
+
+        .card-title {
+            font-size: 15px;
+            font-weight: 600;
             margin-bottom: 8px;
-            background: var(--bg-secondary);
-            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-        .pr-item:hover { border-color: var(--accent-purple); }
-        .pr-item .pr-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
-        .pr-item .pr-title { font-weight: 600; font-size: 14px; }
-        .pr-item .pr-meta { font-size: 12px; color: var(--text-muted); display: flex; gap: 12px; flex-wrap: wrap; margin-top: 4px; }
-        .pr-item .pr-risk { font-size: 12px; font-weight: 600; padding: 2px 10px; border-radius: 20px; }
-        .pr-item .pr-risk.critical { background: rgba(239, 68, 68, 0.15); color: var(--accent-red); }
-        .pr-item .pr-risk.medium { background: rgba(249, 115, 22, 0.15); color: var(--accent-orange); }
-        .pr-item .pr-risk.low { background: rgba(34, 197, 94, 0.15); color: var(--accent-green); }
 
-        .pipeline { display: flex; gap: 8px; align-items: center; margin-top: 12px; flex-wrap: wrap; }
-        .pipeline-step { display: flex; align-items: center; gap: 8px; padding: 6px 14px; background: var(--bg-input); border-radius: 8px; font-size: 12px; font-weight: 500; color: var(--text-muted); }
-        .pipeline-step .check { color: var(--accent-green); }
-        .pipeline-step .spinner { display: none; width: 14px; height: 14px; border: 2px solid var(--text-muted); border-top-color: var(--accent-purple); border-radius: 50%; animation: spin 0.8s linear infinite; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        .pipeline-step.active .spinner { display: block; }
-        .pipeline-step.active .check { display: none; }
-        .pipeline-step.done { background: rgba(34, 197, 94, 0.1); color: var(--accent-green); }
-        .pipeline-step.error { background: rgba(239, 68, 68, 0.1); color: var(--accent-red); }
-        .pipeline-arrow { color: var(--text-muted); padding: 0 4px; font-size: 16px; }
+        .card-subtitle {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
 
-        .import-status { margin-top: 12px; padding: 12px 16px; border-radius: 8px; font-size: 14px; display: none; }
-        .import-status.show { display: block; }
-        .import-status.success { background: rgba(34, 197, 94, 0.1); color: var(--accent-green); border: 1px solid rgba(34, 197, 94, 0.2); }
-        .import-status.error { background: rgba(239, 68, 68, 0.1); color: var(--accent-red); border: 1px solid rgba(239, 68, 68, 0.2); }
-        .import-status.loading { background: rgba(139, 92, 246, 0.05); color: var(--text-secondary); border: 1px solid rgba(139, 92, 246, 0.2); }
+        .input-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .input-group input {
+            flex: 1;
+            min-width: 200px;
+            padding: 12px 16px;
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 14px;
+            font-family: var(--font-inter);
+            transition: border-color 0.3s;
+            outline: none;
+        }
+
+        .input-group input:focus {
+            border-color: var(--accent-purple);
+        }
+
+        .input-group input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .btn-primary {
+            padding: 12px 24px;
+            background: var(--accent-purple);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: var(--font-inter);
+            white-space: nowrap;
+        }
+
+        .btn-primary:hover {
+            background: #7c3aed;
+            transform: translateY(-1px);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .btn-secondary {
+            padding: 10px 20px;
+            background: var(--bg-input);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: var(--font-inter);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border-color);
+        }
+
+        .btn-sm {
+            padding: 4px 12px;
+            font-size: 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: var(--font-inter);
+        }
+
+        .btn-sm:hover {
+            background: var(--bg-card);
+            border-color: var(--accent-purple);
+            color: var(--accent-purple);
+        }
+
+        .quick-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 24px;
+            cursor: pointer;
+            padding: 4px;
+        }
 
         @media (max-width: 1024px) {
-            .main-layout { grid-template-columns: 1fr; }
-            .sidebar { display: none; }
-            .sidebar.mobile-show { display: block; position: fixed; top: 70px; left: 0; right: 0; bottom: 0; z-index: 100; background: var(--bg-secondary); height: calc(100vh - 70px); }
-            .mobile-menu-btn { display: flex !important; }
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                display: none;
+            }
+            .sidebar.mobile-show {
+                display: block;
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 100;
+                background: var(--bg-secondary);
+                height: calc(100vh - 70px);
+            }
+            .mobile-menu-btn {
+                display: flex !important;
+            }
         }
+
         @media (max-width: 768px) {
-            .login-card { padding: 32px 24px; }
-            .login-card h1 { font-size: 34px; }
-            .login-card .features-mini { grid-template-columns: 1fr; gap: 4px; }
-            .content { padding: 16px; }
-            .stats-grid { grid-template-columns: 1fr 1fr; }
-            .agents-grid { grid-template-columns: 1fr; }
-            .header { padding: 10px 16px; }
-            .header-left .logo-text { font-size: 18px; }
-            .user-profile .name { display: none; }
-            .input-group { flex-direction: column; }
-            .input-group input { min-width: auto; }
-            .btn-primary { width: 100%; justify-content: center; }
-            .graph-container { height: 300px; }
+            .welcome-card {
+                padding: 40px 24px;
+            }
+            .welcome-card h1 {
+                font-size: 32px;
+            }
+            .content {
+                padding: 16px;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .header {
+                padding: 10px 16px;
+            }
+            .header-left .logo-text {
+                font-size: 18px;
+            }
+            .user-profile .name {
+                display: none;
+            }
+            .input-group {
+                flex-direction: column;
+            }
+            .input-group input {
+                min-width: auto;
+            }
+            .btn-primary {
+                width: 100%;
+                justify-content: center;
+            }
+            .welcome-card .footer {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
         }
     </style>
 </head>
 <body>
 
     <!-- ============================================
-    LOGIN PAGE
+    WELCOME PAGE — "Built by vxssroot" Energy
     ============================================ -->
-    <div id="loginPage" class="login-page">
-        <div class="login-card">
+    <div id="welcomePage" class="welcome-page">
+        <div class="welcome-card">
             <span class="logo">⚡</span>
             <h1>Axiom</h1>
             <p class="tagline">Engineering Memory Infrastructure</p>
-            <p class="subtitle">Your codebase has memory. Now your team does too.</p>
-            <p class="description">AI-powered repository intelligence for serious engineering teams.</p>
+            <p class="mission">
+                Most tools optimize writing code.<br>
+                <strong style="color: var(--text-primary);">Axiom optimizes understanding codebases.</strong>
+            </p>
 
-            <div class="features-mini">
-                <span>🧠 Memory Layer</span>
-                <span>💥 Blast Radius</span>
-                <span>🤖 Agent Roster</span>
+            <div class="badges">
+                <span class="badge production">✓ Production Ready</span>
+                <span class="badge nigeria">🇳🇬 Nigeria</span>
+                <span class="badge">v1.0.0</span>
             </div>
 
-            <button class="btn-github" onclick="handleLogin()" id="loginBtn">
-                <svg viewBox="0 0 16 16" fill="currentColor" style="width:22px;height:22px;">
-                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
-                </svg>
-                Continue with GitHub
+            <button class="btn-continue" onclick="enterApp()">
+                Continue →
             </button>
 
-            <div id="loginStatus" class="login-status"></div>
-
-            <p class="login-footer">
-                Production Ready • Engineering Memory • MIT License<br>
-                <span style="font-size:10px;color:var(--text-muted);">v1.0.0 · Built by <a href="https://github.com/vxssroot" target="_blank">vxssroot</a></span>
-            </p>
+            <div class="footer">
+                <span class="built-by">
+                    Built by <strong>vxssroot</strong> · <span class="nigeria">🇳🇬 Nigeria</span>
+                </span>
+                <span>MIT License</span>
+                <span>Engineering Memory Infrastructure</span>
+            </div>
         </div>
     </div>
 
     <!-- ============================================
-    DASHBOARD
+    DASHBOARD — The App
     ============================================ -->
     <div id="dashboard" class="dashboard">
-
+        <!-- Header -->
         <header class="header">
             <div class="header-left">
                 <span class="logo-text">⚡ Axiom</span>
@@ -454,7 +762,7 @@
             </div>
             <div class="header-right">
                 <div class="user-profile">
-                    <img id="avatar" src="" alt="Avatar">
+                    <img id="avatar" src="https://ui-avatars.com/api/?name=Axiom+Engineer&background=8b5cf6&color=fff&size=32" alt="Avatar">
                     <div>
                         <div class="name" id="userName">Engineer</div>
                         <div class="username" id="userUsername">@user</div>
@@ -465,16 +773,12 @@
         </header>
 
         <div class="main-layout">
-
+            <!-- Sidebar -->
             <nav class="sidebar" id="sidebar">
                 <div class="sidebar-section">
                     <div class="section-title">Navigation</div>
                     <a class="sidebar-nav-item active" onclick="navigateTo('dashboard')" data-page="dashboard">
                         <span class="icon">📊</span> Dashboard
-                    </a>
-                    <a class="sidebar-nav-item" onclick="navigateTo('repos')" data-page="repos">
-                        <span class="icon">📁</span> Repositories
-                        <span class="badge" id="repoCount">0</span>
                     </a>
                     <a class="sidebar-nav-item" onclick="navigateTo('graph')" data-page="graph">
                         <span class="icon">🕸️</span> Knowledge Graph
@@ -482,9 +786,6 @@
                     <a class="sidebar-nav-item" onclick="navigateTo('prs')" data-page="prs">
                         <span class="icon">🔍</span> PR Intelligence
                         <span class="badge orange" id="prCount">0</span>
-                    </a>
-                    <a class="sidebar-nav-item" onclick="navigateTo('chat')" data-page="chat">
-                        <span class="icon">💬</span> Terminal
                     </a>
                     <a class="sidebar-nav-item" onclick="navigateTo('blast')" data-page="blast">
                         <span class="icon">💥</span> Blast Radius
@@ -505,10 +806,20 @@
                         <span>📍 Mode: <span id="regionDisplay">Live</span></span>
                     </div>
                 </div>
+
+                <!-- Sidebar Footer — Discovery Branding -->
+                <div class="sidebar-footer">
+                    <span class="built-by">
+                        Built by <strong>vxssroot</strong>
+                    </span><br>
+                    <span class="nigeria">🇳🇬 Nigeria</span>
+                    <span style="display:block;margin-top:4px;font-size:9px;color:var(--text-muted);">
+                        Engineering Memory Infrastructure · v1.0.0
+                    </span>
+                </div>
             </nav>
 
             <div class="content">
-
                 <!-- ============================================
                 PAGE: DASHBOARD
                 ============================================ -->
@@ -539,7 +850,7 @@
 
                     <div class="card">
                         <div class="card-title">🧠 Engineering Memory</div>
-                        <div class="card-subtitle">Axiom provides institutional memory for your codebase.</div>
+                        <div class="card-subtitle">Most tools optimize writing code. Axiom optimizes understanding codebases.</div>
                         <div style="margin-top:12px;display:flex;gap:24px;flex-wrap:wrap;font-size:14px;color:var(--text-muted);">
                             <span>📄 Files: <strong style="color:var(--text-primary);" id="fileCount">0</strong></span>
                             <span>🔍 Modules: <strong style="color:var(--text-primary);" id="moduleCount">0</strong></span>
@@ -551,60 +862,10 @@
                     <div class="card">
                         <div class="card-title">🔄 Quick Actions</div>
                         <div class="quick-actions">
-                            <button class="btn-sm" onclick="navigateTo('repos')">📁 Import Repository</button>
                             <button class="btn-sm" onclick="navigateTo('graph')">🕸️ View Knowledge Graph</button>
                             <button class="btn-sm" onclick="navigateTo('prs')">🔍 PR Intelligence</button>
-                            <button class="btn-sm" onclick="navigateTo('chat')">💬 Ask Axiom</button>
                             <button class="btn-sm" onclick="navigateTo('blast')">💥 Check Blast Radius</button>
                             <button class="btn-sm" onclick="navigateTo('agents')">🤖 Activate Agents</button>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title">🤖 Agent Status</div>
-                        <div id="agentStatusMini" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:8px;">
-                            <div style="font-size:13px;color:var(--text-muted);">Loading agents...</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ============================================
-                PAGE: REPOSITORIES
-                ============================================ -->
-                <div id="page-repos" class="page">
-                    <div class="page-header">
-                        <h2>📁 Repositories</h2>
-                        <p>Import and manage your repositories.</p>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title">📥 Import Repository</div>
-                        <div class="input-group">
-                            <input type="text" id="repoUrlInput" placeholder="Enter repository name or URL" value="axiom-core">
-                            <button class="btn-primary" onclick="importRepo()" id="importBtn">Import</button>
-                        </div>
-                        <div id="importStatus" class="import-status"></div>
-                        <div id="pipelineContainer" style="display:none;">
-                            <div class="pipeline" id="pipeline">
-                                <div class="pipeline-step" id="step-queue"><span class="check">✓</span><span class="spinner"></span> Queue</div>
-                                <span class="pipeline-arrow">→</span>
-                                <div class="pipeline-step" id="step-clone"><span class="check">✓</span><span class="spinner"></span> Clone</div>
-                                <span class="pipeline-arrow">→</span>
-                                <div class="pipeline-step" id="step-parse"><span class="check">✓</span><span class="spinner"></span> Parse</div>
-                                <span class="pipeline-arrow">→</span>
-                                <div class="pipeline-step" id="step-complete"><span class="check">✓</span><span class="spinner"></span> Complete</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title">📂 Your Repositories</div>
-                        <div id="repoList">
-                            <div class="empty-state">
-                                <div class="icon">📭</div>
-                                <h3>No repositories imported</h3>
-                                <p>Import a repository above to start building your engineering memory.</p>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -615,32 +876,17 @@
                 <div id="page-graph" class="page">
                     <div class="page-header">
                         <h2>🕸️ Knowledge Graph</h2>
-                        <p>Visualize relationships between files, modules, and dependencies.</p>
+                        <p>Understand what changes are safe before merging.</p>
                     </div>
 
-                    <div class="card" style="padding:0;overflow:hidden;">
-                        <div class="graph-container" id="graphContainer">
-                            <canvas id="graphCanvas"></canvas>
-                            <div class="graph-overlay">🖱️ Click nodes to explore · 🔄 Drag to navigate</div>
+                    <div class="card" style="padding:0;overflow:hidden;min-height:400px;display:flex;align-items:center;justify-content:center;">
+                        <div style="text-align:center;padding:40px;color:var(--text-muted);">
+                            <div style="font-size:48px;margin-bottom:16px;">🕸️</div>
+                            <h3 style="color:var(--text-secondary);margin-bottom:8px;">Knowledge Graph</h3>
+                            <p>Import a repository to visualize your codebase's brain.</p>
+                            <button class="btn-primary" style="margin-top:16px;" onclick="simulateGraph()">Load Demo Graph</button>
                         </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title">📊 Graph Legend</div>
-                        <div style="display:flex;gap:24px;flex-wrap:wrap;font-size:13px;color:var(--text-secondary);margin-top:8px;">
-                            <span>🟣 <strong style="color:var(--accent-purple);">Core Modules</strong></span>
-                            <span>🔵 <strong style="color:var(--accent-blue);">Services</strong></span>
-                            <span>🟢 <strong style="color:var(--accent-green);">Data Layer</strong></span>
-                            <span>🟠 <strong style="color:var(--accent-orange);">External Dependencies</strong></span>
-                            <span>🔴 <strong style="color:var(--accent-red);">High Risk Areas</strong></span>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title">🔍 Node Details</div>
-                        <div id="graphNodeDetails" style="font-size:14px;color:var(--text-muted);min-height:60px;">
-                            <p>Click a node in the graph to see details.</p>
-                        </div>
+                        <canvas id="graphCanvas" style="display:none;width:100%;height:100%;"></canvas>
                     </div>
                 </div>
 
@@ -650,13 +896,13 @@
                 <div id="page-prs" class="page">
                     <div class="page-header">
                         <h2>🔍 PR Intelligence</h2>
-                        <p>Analyze pull requests for risk, impact, and blast radius.</p>
+                        <p>Know the risk before you merge.</p>
                     </div>
 
                     <div class="card">
                         <div class="card-title">📥 Analyze PR</div>
                         <div class="input-group">
-                            <input type="text" id="prUrlInput" placeholder="Enter PR URL or number (e.g., #42)" value="#42">
+                            <input type="text" id="prUrlInput" placeholder="Enter PR number (e.g., #42)" value="#42">
                             <button class="btn-primary" onclick="analyzePR()" id="prBtn">Analyze</button>
                         </div>
                         <div id="prStatus" class="import-status"></div>
@@ -670,52 +916,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="card">
-                        <div class="card-title">📊 Recent PRs</div>
-                        <div id="prHistory" style="font-size:14px;color:var(--text-muted);">
-                            <div class="empty-state" style="padding:20px;">
-                                <p>No recent PR analyses.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ============================================
-                PAGE: CHAT / TERMINAL
-                ============================================ -->
-                <div id="page-chat" class="page">
-                    <div class="page-header">
-                        <h2>💬 Terminal</h2>
-                        <p>Ask Axiom anything about your codebase.</p>
-                    </div>
-
-                    <div class="card" style="padding:0;overflow:hidden;">
-                        <div class="terminal-container">
-                            <div class="terminal-header">
-                                <span class="dot red"></span>
-                                <span class="dot yellow"></span>
-                                <span class="dot green"></span>
-                                <span class="title">axiom-terminal — v1.0.0</span>
-                            </div>
-                            <div class="terminal-body" id="terminalBody">
-                                <div class="message system">⚡ Axiom terminal ready. Ask me anything.</div>
-                                <div class="message system">💡 Try: "What does this codebase do?" or "Explain the architecture"</div>
-                            </div>
-                            <div class="terminal-input-row">
-                                <input type="text" id="chatInput" placeholder="Ask Axiom about your codebase..." onkeydown="if(event.key==='Enter')sendChat()">
-                                <button class="btn-send" onclick="sendChat()" id="sendBtn">Send</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="quick-actions">
-                        <button class="btn-sm" onclick="quickPrompt('What does this codebase do?')">📋 Overview</button>
-                        <button class="btn-sm" onclick="quickPrompt('Explain the architecture')">🏗️ Architecture</button>
-                        <button class="btn-sm" onclick="quickPrompt('What are the main dependencies?')">📦 Dependencies</button>
-                        <button class="btn-sm" onclick="quickPrompt('Who owns the authentication module?')">👤 Ownership</button>
-                        <button class="btn-sm" onclick="quickPrompt('What are the security risks?')">🔒 Security</button>
-                    </div>
                 </div>
 
                 <!-- ============================================
@@ -724,33 +924,24 @@
                 <div id="page-blast" class="page">
                     <div class="page-header">
                         <h2>💥 Blast Radius</h2>
-                        <p>Assess the risk of changes before you make them.</p>
+                        <p>Know what breaks before you touch it.</p>
                     </div>
 
                     <div class="card">
                         <div class="card-title">🎯 Target Analysis</div>
                         <div class="input-group">
-                            <input type="text" id="blastInput" placeholder="Enter file path or function name (e.g., src/api/auth.py)" value="src/main.py">
+                            <input type="text" id="blastInput" placeholder="Enter file path or function name" value="src/main.py">
                             <button class="btn-primary" onclick="runBlastRadius()" id="blastBtn">Analyze</button>
                         </div>
-                        <div id="blastResult" class="blast-result">
+                        <div id="blastResult" class="blast-result" style="display:none;margin-top:16px;padding:16px 20px;border-radius:10px;border:1px solid var(--border-color);background:var(--bg-secondary);">
                             <div id="blastRisk"></div>
                             <div class="detail" id="blastDetail"></div>
                             <div class="files-list" id="blastFiles"></div>
                             <div class="recommendation" id="blastRecommendation"></div>
                         </div>
-                        <div id="blastLoading" class="loading-spinner" style="display:none;text-align:center;padding:20px;">
+                        <div id="blastLoading" style="display:none;text-align:center;padding:20px;">
                             <div style="width:30px;height:30px;border:3px solid var(--bg-input);border-top-color:var(--accent-purple);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 8px;"></div>
                             <p style="color:var(--text-muted);">Analyzing blast radius...</p>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title">📊 Recent Analyses</div>
-                        <div id="blastHistory" style="font-size:14px;color:var(--text-muted);">
-                            <div class="empty-state" style="padding:20px;">
-                                <p>No recent analyses. Run a blast radius check above.</p>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -764,7 +955,7 @@
                         <p>Five specialist agents, each with a domain.</p>
                     </div>
 
-                    <div class="agents-grid" id="agentsGrid">
+                    <div class="agents-grid" id="agentsGrid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;">
                         <!-- Rendered by JS -->
                     </div>
                 </div>
@@ -774,17 +965,18 @@
     </div>
 
     <!-- ============================================
-    JAVASCRIPT — COMPLETE PRODUCTION LOGIC
+    JAVASCRIPT — Production Ready v1.0.0
+    Built by vxssroot · Nigeria 🇳🇬
     ============================================ -->
     <script>
         // ============================================
-        // CONFIGURATION
+        // CONSOLE LOG — Discovery Branding
         // ============================================
-        const CONFIG = {
-            STORAGE_KEY: 'axiom_data_v1',
-            GITHUB_CLIENT_ID: 'Ov23liyZ0DVT21nm9MWs',
-            GITHUB_SECRET: '9f08f5d73b3d096808fa2c278df55e3ff2f2cb62',
-        };
+        console.log('⚡ Axiom v1.0.0');
+        console.log('🧠 Engineering Memory Infrastructure');
+        console.log('👤 Built by vxssroot · Nigeria 🇳🇬');
+        console.log('💡 "Most tools optimize writing code. Axiom optimizes understanding codebases."');
+        console.log('🚀 Production Ready.');
 
         // ============================================
         // STATE
@@ -793,18 +985,13 @@
             user: null,
             repos: [],
             agents: [],
-            chatHistory: [],
-            blastHistory: [],
-            prHistory: [],
             currentPage: 'dashboard',
-            isImporting: false,
-            isAnalyzing: false,
             filesAnalyzed: 0,
             modulesCount: 0,
             dependenciesCount: 0,
             healthScore: 85,
-            graphNodes: [],
-            graphEdges: [],
+            blastHistory: [],
+            prHistory: [],
         };
 
         // ============================================
@@ -814,938 +1001,44 @@
         const $$ = (sel) => document.querySelectorAll(sel);
 
         // ============================================
-        // INIT
+        // WELCOME PAGE
         // ============================================
-        document.addEventListener('DOMContentLoaded', () => {
-            // Load saved data
-            const saved = localStorage.getItem(CONFIG.STORAGE_KEY);
-            if (saved) {
-                try {
-                    const data = JSON.parse(saved);
-                    state.user = data.user;
-                    state.repos = data.repos || [];
-                    state.blastHistory = data.blastHistory || [];
-                    state.prHistory = data.prHistory || [];
-                    state.filesAnalyzed = data.filesAnalyzed || 0;
-                    state.modulesCount = data.modulesCount || 0;
-                    state.dependenciesCount = data.dependenciesCount || 0;
-                    state.healthScore = data.healthScore || 85;
-                    state.graphNodes = data.graphNodes || [];
-                    state.graphEdges = data.graphEdges || [];
-                } catch (e) {}
-            }
-
-            // Check for GitHub OAuth callback
-            const params = new URLSearchParams(window.location.search);
-            const code = params.get('code');
-            if (code) {
-                handleGitHubCallback(code);
-                return;
-            }
-
-            // Check for user
-            if (state.user) {
-                showDashboard();
-                generateKnowledgeGraph();
-            } else {
-                showLogin();
-            }
-
-            // Load agents
+        function enterApp() {
+            $('welcomePage').style.display = 'none';
+            $('dashboard').classList.add('active');
             loadAgents();
             updateUI();
-            renderPRHistory();
-
-            // Keyboard shortcuts
-            document.addEventListener('keydown', (e) => {
-                if (e.ctrlKey && e.key === 'k') { e.preventDefault();
-                    navigateTo('chat');
-                    const input = $('chatInput');
-                    if (input) input.focus(); }
-                if (e.key === 'Escape') { document.activeElement?.blur(); }
-                if (e.ctrlKey && ['1', '2', '3', '4', '5', '6'].includes(e.key)) {
-                    e.preventDefault();
-                    const pages = ['dashboard', 'repos', 'graph', 'prs', 'chat', 'blast', 'agents'];
-                    navigateTo(pages[parseInt(e.key) - 1]);
-                }
-            });
-        });
+        }
 
         // ============================================
         // AUTH
         // ============================================
-        function handleLogin() {
-            const btn = $('loginBtn');
-            btn.disabled = true;
-            btn.innerHTML = '⏳ Connecting...';
-
-            const demoUser = {
-                id: Math.floor(Math.random() * 1000000),
-                username: 'engineer',
-                name: 'Axiom Engineer',
-                avatar_url: 'https://ui-avatars.com/api/?name=Axiom+Engineer&background=8b5cf6&color=fff&size=64',
-                bio: 'Building the future of engineering memory',
-                public_repos: 12,
-                followers: 42,
-                following: 7,
-                location: 'Cloud'
-            };
-
-            state.user = demoUser;
-            saveState();
-
-            showLoginStatus('✅ Production mode activated!', 'success');
-
-            setTimeout(() => {
-                showDashboard();
-                generateKnowledgeGraph();
-                updateUI();
-            }, 500);
-        }
-
         function handleLogout() {
-            state.user = null;
-            state.repos = [];
-            localStorage.removeItem(CONFIG.STORAGE_KEY);
             $('dashboard').classList.remove('active');
-            $('loginPage').style.display = 'flex';
-            showLogin();
-        }
-
-        function showLogin() {
-            $('loginPage').style.display = 'flex';
-            $('dashboard').classList.remove('active');
-            const btn = $('loginBtn');
-            btn.disabled = false;
-            btn.innerHTML = `
-                <svg viewBox="0 0 16 16" fill="currentColor" style="width:22px;height:22px;">
-                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
-                </svg>
-                Continue with GitHub
-            `;
-        }
-
-        function showLoginStatus(msg, type) {
-            const el = $('loginStatus');
-            el.textContent = msg;
-            el.className = `login-status show ${type}`;
-        }
-
-        function showDashboard() {
-            $('loginPage').style.display = 'none';
-            $('dashboard').classList.add('active');
+            $('welcomePage').style.display = 'flex';
         }
 
         // ============================================
-        // GITHUB OAUTH Callback
+        // NAVIGATION
         // ============================================
-        async function handleGitHubCallback(code) {
-            try {
-                const response = await fetch('https://api.github.com/login/oauth/access_token', {
-                    method: 'POST',
-                    headers: { 'Accept': 'application/json' },
-                    body: new URLSearchParams({
-                        client_id: CONFIG.GITHUB_CLIENT_ID,
-                        client_secret: CONFIG.GITHUB_SECRET,
-                        code: code,
-                    })
-                });
+        function navigateTo(page) {
+            state.currentPage = page;
 
-                const data = await response.json();
-
-                if (data.access_token) {
-                    const userRes = await fetch('https://api.github.com/user', {
-                        headers: { 'Authorization': `Bearer ${data.access_token}` }
-                    });
-                    const user = await userRes.json();
-
-                    state.user = {
-                        id: user.id,
-                        username: user.login,
-                        name: user.name || user.login,
-                        avatar_url: user.avatar_url,
-                        bio: user.bio || '',
-                        public_repos: user.public_repos || 0,
-                        followers: user.followers || 0,
-                        following: user.following || 0,
-                        location: user.location || 'Global'
-                    };
-
-                    saveState();
-                    showDashboard();
-                    generateKnowledgeGraph();
-                    updateUI();
-                    window.history.replaceState({}, '', '/');
-                }
-            } catch (e) {
-                showLoginStatus('❌ OAuth failed. Use demo mode.', 'error');
-            }
-        }
-
-        // ============================================
-        // SAVE STATE
-        // ============================================
-        function saveState() {
-            localStorage.setItem(CONFIG.STORAGE_KEY, JSON.stringify({
-                user: state.user,
-                repos: state.repos,
-                blastHistory: state.blastHistory,
-                prHistory: state.prHistory,
-                filesAnalyzed: state.filesAnalyzed,
-                modulesCount: state.modulesCount,
-                dependenciesCount: state.dependenciesCount,
-                healthScore: state.healthScore,
-                graphNodes: state.graphNodes,
-                graphEdges: state.graphEdges,
-            }));
-        }
-
-        // ============================================
-        // IMPORT REPO
-        // ============================================
-        async function importRepo() {
-            if (state.isImporting) return;
-
-            const urlInput = $('repoUrlInput');
-            const name = urlInput.value.trim() || 'axiom-core';
-
-            state.isImporting = true;
-            const btn = $('importBtn');
-            btn.disabled = true;
-            btn.textContent = '⏳ Importing...';
-
-            showImportStatus('Starting import...', 'loading');
-            $('pipelineContainer').style.display = 'block';
-            resetPipeline();
-
-            try {
-                updatePipeline('step-queue', 'active');
-                await sleep(400);
-                updatePipeline('step-queue', 'done');
-                updatePipeline('step-clone', 'active');
-                showImportStatus('Cloning repository...', 'loading');
-                await sleep(700);
-                updatePipeline('step-clone', 'done');
-                updatePipeline('step-parse', 'active');
-                showImportStatus('Parsing codebase...', 'loading');
-                await sleep(900);
-                updatePipeline('step-parse', 'done');
-                updatePipeline('step-complete', 'active');
-                showImportStatus('Indexing and storing embeddings...', 'loading');
-                await sleep(600);
-
-                const filesCount = Math.floor(Math.random() * 100) + 20;
-                const modulesCount = Math.floor(Math.random() * 20) + 5;
-                const depsCount = Math.floor(Math.random() * 30) + 10;
-
-                const repo = {
-                    id: Date.now(),
-                    name: name,
-                    full_name: `user/${name}`,
-                    description: `Repository imported via Axiom`,
-                    private: false,
-                    html_url: `https://github.com/user/${name}`,
-                    language: ['Python', 'JavaScript', 'TypeScript', 'Go', 'Rust'][Math.floor(Math.random() * 5)],
-                    stargazers_count: Math.floor(Math.random() * 100),
-                    forks_count: Math.floor(Math.random() * 50),
-                    files: filesCount,
-                    modules: modulesCount,
-                    dependencies: depsCount,
-                    risk_score: Math.floor(Math.random() * 40) + 20,
-                    imported_at: new Date().toISOString()
-                };
-
-                state.repos.push(repo);
-                state.filesAnalyzed += filesCount;
-                state.modulesCount += modulesCount;
-                state.dependenciesCount += depsCount;
-                state.healthScore = Math.min(95, state.healthScore + 2);
-
-                // Generate knowledge graph nodes
-                generateGraphData(repo);
-
-                saveState();
-
-                updatePipeline('step-complete', 'done');
-                showImportStatus(`✅ Successfully imported "${name}" with ${filesCount} files, ${modulesCount} modules, and ${depsCount} dependencies.`, 'success');
-
-                updateUI();
-                renderRepos();
-                generateKnowledgeGraph();
-
-            } catch (e) {
-                updatePipeline('step-complete', 'error');
-                showImportStatus(`❌ Import failed: ${e.message}`, 'error');
-            } finally {
-                state.isImporting = false;
-                btn.disabled = false;
-                btn.textContent = 'Import';
-            }
-        }
-
-        function resetPipeline() {
-            ['step-queue', 'step-clone', 'step-parse', 'step-complete'].forEach(id => {
-                const el = $(id);
-                if (el) {
-                    el.className = 'pipeline-step';
-                    const check = el.querySelector('.check');
-                    const spinner = el.querySelector('.spinner');
-                    if (check) check.style.display = 'inline';
-                    if (spinner) spinner.style.display = 'none';
-                }
-            });
-        }
-
-        function updatePipeline(id, status) {
-            const el = $(id);
-            if (!el) return;
-            el.className = `pipeline-step ${status}`;
-            const check = el.querySelector('.check');
-            const spinner = el.querySelector('.spinner');
-            if (status === 'active') {
-                if (check) check.style.display = 'none';
-                if (spinner) spinner.style.display = 'block';
-            } else if (status === 'done') {
-                if (check) check.style.display = 'inline';
-                if (spinner) spinner.style.display = 'none';
-            } else if (status === 'error') {
-                if (check) check.textContent = '✗';
-                if (check) check.style.color = 'var(--accent-red)';
-                if (spinner) spinner.style.display = 'none';
-            }
-        }
-
-        function showImportStatus(msg, type) {
-            const el = $('importStatus');
-            if (!el) return;
-            el.textContent = msg;
-            el.className = `import-status show ${type}`;
-        }
-
-        function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
-
-        // ============================================
-        // KNOWLEDGE GRAPH
-        // ============================================
-        function generateGraphData(repo) {
-            const nodes = [
-                { id: 'auth', label: 'Auth Module', type: 'core', x: 0.3, y: 0.2, size: 1.2 },
-                { id: 'api', label: 'API Gateway', type: 'core', x: 0.6, y: 0.15, size: 1.4 },
-                { id: 'models', label: 'Data Models', type: 'data', x: 0.2, y: 0.6, size: 1.0 },
-                { id: 'services', label: 'Services', type: 'service', x: 0.7, y: 0.5, size: 1.3 },
-                { id: 'database', label: 'Database', type: 'data', x: 0.4, y: 0.8, size: 1.1 },
-                { id: 'cache', label: 'Cache Layer', type: 'service', x: 0.8, y: 0.3, size: 0.9 },
-                { id: 'external', label: 'External APIs', type: 'external', x: 0.9, y: 0.7, size: 0.8 },
-                { id: 'queue', label: 'Message Queue', type: 'service', x: 0.1, y: 0.4, size: 0.9 },
-                { id: 'monitoring', label: 'Monitoring', type: 'external', x: 0.5, y: 0.1, size: 0.8 },
-                { id: 'deploy', label: 'Deployment', type: 'external', x: 0.85, y: 0.9, size: 0.7 },
-            ];
-
-            const edges = [
-                { source: 'api', target: 'auth' },
-                { source: 'api', target: 'services' },
-                { source: 'api', target: 'models' },
-                { source: 'services', target: 'database' },
-                { source: 'services', target: 'cache' },
-                { source: 'services', target: 'queue' },
-                { source: 'services', target: 'external' },
-                { source: 'models', target: 'database' },
-                { source: 'auth', target: 'database' },
-                { source: 'api', target: 'monitoring' },
-                { source: 'deploy', target: 'api' },
-                { source: 'deploy', target: 'database' },
-            ];
-
-            // Add risk scores to nodes
-            const highRiskNodes = ['auth', 'api'];
-            nodes.forEach(node => {
-                node.risk = highRiskNodes.includes(node.id) ? 'high' : 'low';
+            $$('.sidebar-nav-item').forEach(el => {
+                el.classList.toggle('active', el.dataset.page === page);
             });
 
-            state.graphNodes = nodes;
-            state.graphEdges = edges;
-            saveState();
-            generateKnowledgeGraph();
-        }
-
-        function generateKnowledgeGraph() {
-            const canvas = $('graphCanvas');
-            if (!canvas) return;
-
-            const container = $('graphContainer');
-            if (!container) return;
-
-            const rect = container.getBoundingClientRect();
-            canvas.width = rect.width || 800;
-            canvas.height = rect.height || 500;
-
-            const ctx = canvas.getContext('2d');
-            const W = canvas.width;
-            const H = canvas.height;
-
-            ctx.clearRect(0, 0, W, H);
-
-            const nodes = state.graphNodes;
-            const edges = state.graphEdges;
-
-            if (!nodes.length) {
-                ctx.fillStyle = 'var(--text-muted)';
-                ctx.font = '16px Inter, sans-serif';
-                ctx.textAlign = 'center';
-                ctx.fillText('Import a repository to generate the knowledge graph', W/2, H/2);
-                return;
-            }
-
-            // Position nodes
-            const padding = 60;
-            const innerW = W - padding * 2;
-            const innerH = H - padding * 2;
-
-            nodes.forEach((node, i) => {
-                const angle = (i / nodes.length) * Math.PI * 2;
-                const radius = Math.min(innerW, innerH) * 0.35;
-                node.drawX = padding + innerW/2 + Math.cos(angle) * radius * (0.6 + Math.random() * 0.4);
-                node.drawY = padding + innerH/2 + Math.sin(angle) * radius * (0.6 + Math.random() * 0.4);
-                // Add some randomness
-                node.drawX += (Math.random() - 0.5) * 30;
-                node.drawY += (Math.random() - 0.5) * 30;
+            $$('.page').forEach(el => {
+                el.classList.toggle('active', el.id === `page-${page}`);
             });
 
-            // Draw edges
-            edges.forEach(edge => {
-                const source = nodes.find(n => n.id === edge.source);
-                const target = nodes.find(n => n.id === edge.target);
-                if (!source || !target) return;
-
-                const isHighlight = edge.source === 'api' || edge.target === 'api';
-                ctx.beginPath();
-                ctx.moveTo(source.drawX, source.drawY);
-                ctx.lineTo(target.drawX, target.drawY);
-                ctx.strokeStyle = isHighlight ? 'rgba(139, 92, 246, 0.6)' : 'rgba(42, 42, 58, 0.5)';
-                ctx.lineWidth = isHighlight ? 2.5 : 1.5;
-                ctx.stroke();
-
-                // Add glow for highlighted edges
-                if (isHighlight) {
-                    ctx.shadowColor = 'rgba(139, 92, 246, 0.2)';
-                    ctx.shadowBlur = 8;
-                    ctx.stroke();
-                    ctx.shadowBlur = 0;
-                }
-            });
-
-            // Draw nodes
-            const colors = {
-                core: '#8b5cf6',
-                service: '#3b82f6',
-                data: '#22c55e',
-                external: '#f97316',
-            };
-
-            nodes.forEach(node => {
-                const color = colors[node.type] || '#8b5cf6';
-                const radius = (node.size || 1) * 18 + (node.risk === 'high' ? 4 : 0);
-
-                // Glow for high risk
-                if (node.risk === 'high') {
-                    const gradient = ctx.createRadialGradient(node.drawX, node.drawY, 0, node.drawX, node.drawY, radius * 2);
-                    gradient.addColorStop(0, 'rgba(239, 68, 68, 0.15)');
-                    gradient.addColorStop(1, 'rgba(239, 68, 68, 0)');
-                    ctx.fillStyle = gradient;
-                    ctx.beginPath();
-                    ctx.arc(node.drawX, node.drawY, radius * 2, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-
-                // Node circle
-                const gradient = ctx.createRadialGradient(node.drawX - radius*0.3, node.drawY - radius*0.3, 0, node.drawX, node.drawY, radius);
-                gradient.addColorStop(0, color);
-                gradient.addColorStop(0.7, color);
-                gradient.addColorStop(1, '#1a1a24');
-                ctx.fillStyle = gradient;
-                ctx.shadowColor = 'rgba(0,0,0,0.3)';
-                ctx.shadowBlur = 10;
-                ctx.beginPath();
-                ctx.arc(node.drawX, node.drawY, radius, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.shadowBlur = 0;
-
-                // Border
-                ctx.strokeStyle = color;
-                ctx.lineWidth = 2;
-                ctx.beginPath();
-                ctx.arc(node.drawX, node.drawY, radius, 0, Math.PI * 2);
-                ctx.stroke();
-
-                // Risk indicator
-                if (node.risk === 'high') {
-                    ctx.fillStyle = '#ef4444';
-                    ctx.font = '12px sans-serif';
-                    ctx.textAlign = 'center';
-                    ctx.textBaseline = 'middle';
-                    ctx.fillText('⚠', node.drawX + radius + 10, node.drawY - 4);
-                }
-
-                // Label
-                ctx.fillStyle = '#fafafa';
-                ctx.font = '11px Inter, sans-serif';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'top';
-                ctx.fillText(node.label, node.drawX, node.drawY + radius + 6);
-            });
-
-            // Store node positions for interaction
-            state._graphNodes = nodes;
-
-            // Set up click handler
-            canvas.onclick = (e) => {
-                const rect2 = canvas.getBoundingClientRect();
-                const x = e.clientX - rect2.left;
-                const y = e.clientY - rect2.top;
-
-                let found = null;
-                nodes.forEach(node => {
-                    const dx = x - node.drawX;
-                    const dy = y - node.drawY;
-                    const dist = Math.sqrt(dx*dx + dy*dy);
-                    const radius2 = (node.size || 1) * 18 + 8;
-                    if (dist < radius2) found = node;
-                });
-
-                if (found) {
-                    showNodeDetails(found);
-                }
-            };
+            const sidebar = $('sidebar');
+            if (sidebar) sidebar.classList.remove('mobile-show');
         }
 
-        function showNodeDetails(node) {
-            const container = $('graphNodeDetails');
-            if (!container) return;
-
-            const riskLabel = node.risk === 'high' ? '🔴 High Risk' : '🟢 Low Risk';
-            const typeLabels = {
-                core: '🟣 Core Module',
-                service: '🔵 Service',
-                data: '🟢 Data Layer',
-                external: '🟠 External Dependency',
-            };
-
-            container.innerHTML = `
-                <div style="display:grid;grid-template-columns:auto 1fr;gap:8px 16px;padding:8px 0;">
-                    <strong style="color:var(--text-secondary);">Name:</strong>
-                    <span style="color:var(--text-primary);font-weight:600;">${node.label}</span>
-                    <strong style="color:var(--text-secondary);">Type:</strong>
-                    <span>${typeLabels[node.type] || node.type}</span>
-                    <strong style="color:var(--text-secondary);">Risk:</strong>
-                    <span>${riskLabel}</span>
-                    <strong style="color:var(--text-secondary);">Connected to:</strong>
-                    <span>${state.graphEdges.filter(e => e.source === node.id || e.target === node.id).length} nodes</span>
-                </div>
-                <div style="margin-top:8px;padding:8px 12px;background:var(--bg-input);border-radius:6px;font-size:13px;color:var(--text-secondary);">
-                    ${node.risk === 'high' ? '⚠️ This is a critical component. Changes should be carefully reviewed.' : '✅ This component has low risk. Standard review process applies.'}
-                </div>
-            `;
-        }
-
-        // ============================================
-        // PR INTELLIGENCE
-        // ============================================
-        async function analyzePR() {
-            if (state.isAnalyzing) return;
-
-            const input = $('prUrlInput');
-            const prNumber = input.value.trim().replace('#', '');
-            if (!prNumber) {
-                showPRStatus('Please enter a PR number', 'error');
-                return;
-            }
-
-            state.isAnalyzing = true;
-            const btn = $('prBtn');
-            btn.disabled = true;
-            btn.textContent = '⏳ Analyzing...';
-            showPRStatus('Analyzing PR #' + prNumber + '...', 'loading');
-
-            try {
-                await sleep(1500);
-
-                // Generate realistic PR analysis
-                const riskLevels = ['LOW', 'MEDIUM', 'CRITICAL'];
-                const risk = riskLevels[Math.floor(Math.random() * 3)];
-
-                const filesChanged = Math.floor(Math.random() * 15) + 1;
-                const linesAdded = Math.floor(Math.random() * 200) + 10;
-                const linesRemoved = Math.floor(Math.random() * 100) + 5;
-                const dependenciesAffected = Math.floor(Math.random() * 8) + 1;
-
-                const isCritical = risk === 'CRITICAL' || filesChanged > 10 || dependenciesAffected > 5;
-
-                const result = {
-                    pr_number: prNumber,
-                    risk_level: isCritical ? 'CRITICAL' : risk,
-                    files_changed: filesChanged,
-                    lines_added: linesAdded,
-                    lines_removed: linesRemoved,
-                    dependencies_affected: dependenciesAffected,
-                    impact_files: isCritical ? [
-                        'src/api/routes.py',
-                        'src/models/user.py',
-                        'src/services/auth.py',
-                        'tests/test_auth.py',
-                    ] : [
-                        'src/api/routes.py',
-                        'tests/test_routes.py',
-                    ],
-                    services_affected: isCritical ? ['api-service', 'auth-service', 'user-service'] : ['api-service'],
-                    recommendation: isCritical ?
-                        '🚨 CRITICAL: This PR affects multiple services and has high blast radius. Require review from both the API and Security teams. Consider breaking into smaller PRs.' :
-                        risk === 'MEDIUM' ?
-                        '⚠️ MODERATE RISK: This PR has moderate impact. Ensure thorough testing and at least one reviewer from the affected service team.' :
-                        '✅ LOW RISK: This PR appears safe. Standard review process applies.',
-                    suggested_reviewers: isCritical ? ['@security-team', '@api-team', '@lead-engineer'] : ['@team-lead'],
-                    timestamp: new Date().toISOString()
-                };
-
-                displayPRResult(result);
-
-                state.prHistory.unshift(result);
-                if (state.prHistory.length > 10) state.prHistory.pop();
-                saveState();
-                renderPRHistory();
-
-                showPRStatus('✅ Analysis complete!', 'success');
-
-            } catch (e) {
-                showPRStatus('❌ Analysis failed: ' + e.message, 'error');
-            } finally {
-                state.isAnalyzing = false;
-                btn.disabled = false;
-                btn.textContent = 'Analyze';
-            }
-        }
-
-        function displayPRResult(data) {
-            const container = $('prResults');
-            if (!container) return;
-
-            const riskClass = data.risk_level.toLowerCase();
-
-            container.innerHTML = `
-                <div style="margin-bottom:16px;">
-                    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
-                        <span style="font-size:18px;font-weight:700;">PR #${data.pr_number}</span>
-                        <span class="pr-risk ${riskClass}">${data.risk_level} RISK</span>
-                    </div>
-                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-top:12px;">
-                        <div style="background:var(--bg-input);padding:10px 14px;border-radius:6px;">
-                            <div style="font-size:11px;color:var(--text-muted);">Files Changed</div>
-                            <div style="font-size:20px;font-weight:700;">${data.files_changed}</div>
-                        </div>
-                        <div style="background:var(--bg-input);padding:10px 14px;border-radius:6px;">
-                            <div style="font-size:11px;color:var(--text-muted);">Lines Added</div>
-                            <div style="font-size:20px;font-weight:700;color:var(--accent-green);">+${data.lines_added}</div>
-                        </div>
-                        <div style="background:var(--bg-input);padding:10px 14px;border-radius:6px;">
-                            <div style="font-size:11px;color:var(--text-muted);">Lines Removed</div>
-                            <div style="font-size:20px;font-weight:700;color:var(--accent-red);">-${data.lines_removed}</div>
-                        </div>
-                        <div style="background:var(--bg-input);padding:10px 14px;border-radius:6px;">
-                            <div style="font-size:11px;color:var(--text-muted);">Dependencies</div>
-                            <div style="font-size:20px;font-weight:700;">${data.dependencies_affected}</div>
-                        </div>
-                    </div>
-                    <div style="margin-top:12px;">
-                        <div style="font-size:13px;color:var(--text-secondary);"><strong>Impact Files:</strong></div>
-                        <div class="files-list" style="margin-top:4px;">
-                            ${data.impact_files.map(f => `<span class="file-tag">📄 ${f}</span>`).join('')}
-                        </div>
-                    </div>
-                    <div style="margin-top:12px;">
-                        <div style="font-size:13px;color:var(--text-secondary);"><strong>Services Affected:</strong></div>
-                        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;">
-                            ${data.services_affected.map(s => `<span class="file-tag" style="background:rgba(139,92,246,0.1);color:var(--accent-purple);">${s}</span>`).join('')}
-                        </div>
-                    </div>
-                    <div style="margin-top:12px;padding:12px 16px;background:rgba(139,92,246,0.05);border-left:3px solid var(--accent-purple);border-radius:6px;font-size:14px;color:var(--text-secondary);">
-                        <strong>🛡️ Recommendation:</strong> ${data.recommendation}
-                    </div>
-                    <div style="margin-top:12px;">
-                        <div style="font-size:13px;color:var(--text-secondary);"><strong>Suggested Reviewers:</strong></div>
-                        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;">
-                            ${data.suggested_reviewers.map(r => `<span style="background:var(--bg-input);padding:2px 12px;border-radius:20px;font-size:12px;color:var(--text-secondary);">${r}</span>`).join('')}
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        function showPRStatus(msg, type) {
-            const el = $('prStatus');
-            if (!el) return;
-            el.textContent = msg;
-            el.className = `import-status show ${type}`;
-        }
-
-        function renderPRHistory() {
-            const container = $('prHistory');
-            if (!container) return;
-
-            if (!state.prHistory.length) {
-                container.innerHTML = `
-                    <div class="empty-state" style="padding:20px;">
-                        <p>No recent PR analyses.</p>
-                    </div>
-                `;
-                return;
-            }
-
-            const prCount = $('prCount');
-            if (prCount) prCount.textContent = state.prHistory.length;
-
-            container.innerHTML = state.prHistory.slice(0, 5).map(item => `
-                <div class="pr-item">
-                    <div class="pr-header">
-                        <span class="pr-title">PR #${item.pr_number}</span>
-                        <span class="pr-risk ${item.risk_level.toLowerCase()}">${item.risk_level}</span>
-                    </div>
-                    <div class="pr-meta">
-                        <span>📄 ${item.files_changed} files</span>
-                        <span>➕ ${item.lines_added} lines</span>
-                        <span>➖ ${item.lines_removed} lines</span>
-                        <span>🔗 ${item.dependencies_affected} deps</span>
-                        <span>🕐 ${new Date(item.timestamp).toLocaleString()}</span>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // ============================================
-        // CHAT / TERMINAL
-        // ============================================
-        function sendChat() {
-            const input = $('chatInput');
-            const prompt = input.value.trim();
-            if (!prompt) return;
-
-            const btn = $('sendBtn');
-            btn.disabled = true;
-            input.disabled = true;
-
-            addTerminalMessage(prompt, 'user');
-
-            const response = generateResponse(prompt);
-            addTerminalMessage(response, 'ai');
-
-            input.value = '';
-            input.disabled = false;
-            btn.disabled = false;
-            input.focus();
-
-            const body = $('terminalBody');
-            if (body) body.scrollTop = body.scrollHeight;
-        }
-
-        function addTerminalMessage(text, type) {
-            const body = $('terminalBody');
-            if (!body) return;
-            const div = document.createElement('div');
-            div.className = 'message';
-            const emoji = type === 'user' ? '🧑' : type === 'ai' ? '🤖' : 'ℹ️';
-            div.innerHTML = `<span class="${type}">${emoji} ${text}</span>`;
-            body.appendChild(div);
-            body.scrollTop = body.scrollHeight;
-        }
-
-        function quickPrompt(text) {
-            const input = $('chatInput');
-            if (input) {
-                input.value = text;
-                sendChat();
-            }
-        }
-
-        function generateResponse(prompt) {
-            const repoCount = state.repos.length;
-            const fileCount = state.filesAnalyzed;
-            const moduleCount = state.modulesCount;
-            const depCount = state.dependenciesCount;
-            const healthScore = state.healthScore;
-
-            const responses = [
-                {
-                    keywords: ['what does', 'overview', 'summary', 'introduction'],
-                    response: `📊 **Codebase Overview**\n\nAxiom has analyzed ${repoCount} repositories with ${fileCount} files and ${moduleCount} modules.\n\n**Key Metrics:**\n- Health Score: ${healthScore}/100\n- Dependencies: ${depCount}\n- Memory Index: ${Math.min(100, repoCount * 15)}%\n\n**Architecture:**\nThe system follows a layered architecture with clear separation between API, business logic, and data layers. ${repoCount > 0 ? 'You have ' + repoCount + ' repositories indexed for intelligence.' : 'Import a repository to get started.'}`
-                },
-                {
-                    keywords: ['architecture', 'structure', 'design', 'pattern'],
-                    response: `🏗️ **Architecture Analysis**\n\nThe system follows a layered architecture:\n\n\`\`\`\n┌─────────────────────────────────────┐\n│           API Layer                  │\n│  • Route handling                    │\n│  • Request validation                │\n├─────────────────────────────────────┤\n│         Business Logic              │\n│  • Service layer                     │\n│  • Domain logic                      │\n├─────────────────────────────────────┤\n│         Data Access                 │\n│  • Repository pattern                │\n│  • ORM / Database                    │\n├─────────────────────────────────────┤\n│      External Services              │\n│  • Third-party APIs                 │\n│  • Message queues                   │\n└─────────────────────────────────────┘\n\`\`\`\n\n${depCount > 0 ? `The system has ${depCount} identified dependencies.` : 'Import repositories to see dependency analysis.'}`
-                },
-                {
-                    keywords: ['dependency', 'dependencies', 'tech stack', 'framework', 'library'],
-                    response: `📦 **Dependencies & Tech Stack**\n\n**Core Stack:**\n- Backend: Python 3.11+ / FastAPI\n- Frontend: Next.js 14 / React\n- Database: PostgreSQL\n- Cache: Redis\n- Queue: RabbitMQ/Kafka\n\n**Key Libraries (${depCount} total dependencies):**\n- FastAPI (API framework)\n- SQLAlchemy (ORM)\n- Pydantic (Data validation)\n- React (UI components)\n- Tailwind CSS (Styling)\n\n**Security Status:** ${healthScore > 80 ? '✅ Dependencies are up-to-date and secure.' : '⚠️ Review dependencies for potential updates.'}`
-                },
-                {
-                    keywords: ['owner', 'ownership', 'who', 'responsible', 'team'],
-                    response: `👤 **Ownership & Responsibilities**\n\nBased on commit patterns and file structure:\n\n- **Auth Module**: Security Team\n- **API Routes**: Backend Engineers\n- **Database Models**: Data Team\n- **UI Components**: Frontend Engineers\n- **DevOps**: Infrastructure Team\n- **Testing**: QA Team\n\n📊 **Knowledge Distribution:**\n${moduleCount > 0 ? `• ${Math.min(moduleCount, 20)} modules identified\n• Ownership matrix generated\n• Bus factor calculated` : 'Import repositories to generate ownership maps.'}`
-                },
-                {
-                    keywords: ['security', 'vulnerability', 'secret', 'encryption', 'auth'],
-                    response: `🔒 **Security Analysis**\n\n**Security Posture:** ${healthScore > 80 ? '✅ Good' : healthScore > 60 ? '⚠️ Moderate' : '🔴 Needs Attention'}\n\n**Findings:**\n- ✅ Authentication: OAuth 2.0\n- ✅ Encryption: AES-256\n- ⚠️ Secrets: Using environment variables\n- ✅ Dependencies: Regular scanning\n\n**Recommendations:**\n1. Implement rate limiting\n2. Add security headers\n3. Regular dependency audits\n4. Secrets rotation policy\n\n${depCount > 0 ? `\n**Dependency CVE Status:**\n- ${Math.floor(depCount * 0.1)} known vulnerabilities found\n- ${Math.floor(depCount * 0.05)} critical issues identified` : ''}`
-                },
-                {
-                    keywords: ['test', 'testing', 'coverage', 'unit test', 'integration'],
-                    response: `🧪 **Testing & Quality**\n\n**Test Coverage:** ${Math.min(90, 60 + repoCount * 5)}%\n\n**Test Types:**\n- Unit Tests: ✅ Present\n- Integration Tests: ✅ Present\n- E2E Tests: ⚠️ Partial\n- Performance Tests: ⚠️ Limited\n\n**Quality Metrics:**\n- Code Quality: ${healthScore > 80 ? '✅ Excellent' : healthScore > 60 ? '⚠️ Good' : '🔴 Needs Improvement'}\n- Technical Debt: ${healthScore > 80 ? 'Low' : 'Moderate'}\n- Maintainability: ${healthScore > 80 ? 'High' : 'Medium'}\n\n**Recommendations:**\n- Increase test coverage to 80%+\n- Add integration tests for critical paths\n- Implement contract testing`
-                },
-                {
-                    keywords: ['performance', 'speed', 'optimize', 'cache', 'bottleneck'],
-                    response: `⚡ **Performance Analysis**\n\n**Performance Score:** ${Math.min(95, 70 + repoCount * 3)}/100\n\n**Strengths:**\n- ✅ Efficient database queries\n- ✅ Static asset caching\n- ✅ CDN integration\n\n**Areas for Improvement:**\n- ⚠️ Add Redis caching layer\n- ⚠️ Implement lazy loading\n- ⚠️ Optimize API response times\n\n**Key Metrics:**\n- Average API response: ${Math.floor(Math.random() * 100 + 50)}ms\n- Database query time: ${Math.floor(Math.random() * 50 + 20)}ms\n- Static asset load: ${Math.floor(Math.random() * 200 + 100)}ms\n\n**Recommendation:** Add caching for frequently accessed endpoints.`
-                },
-                {
-                    keywords: ['risk', 'blast', 'dangerous', 'impact'],
-                    response: `💥 **Risk & Impact Analysis**\n\n**Critical Modules Identified:**\n${state.graphNodes.filter(n => n.risk === 'high').map(n => `• ${n.label}`).join('\n') || '• No high-risk modules detected'}\n\n**Risk Distribution:**\n- 🟣 Core Modules: ${state.graphNodes.filter(n => n.type === 'core').length}\n- 🔵 Services: ${state.graphNodes.filter(n => n.type === 'service').length}\n- 🟢 Data Layers: ${state.graphNodes.filter(n => n.type === 'data').length}\n\n**High-Risk Areas:**\n${state.graphNodes.filter(n => n.risk === 'high').length > 0 ? 'Auth and API modules require careful review before changes.' : 'No high-risk areas identified.'}`
-                }
-            ];
-
-            const promptLower = prompt.toLowerCase();
-            let matched = responses.find(r =>
-                r.keywords.some(k => promptLower.includes(k))
-            );
-
-            if (!matched) {
-                return `🧠 **Intelligent Analysis**\n\nBased on my understanding of the codebase (${state.repos.length} repositories, ${state.filesAnalyzed} files), I can help you with:\n\n1. **Architecture** - How the system is structured\n2. **Dependencies** - What libraries and frameworks are used\n3. **Ownership** - Who owns which components\n4. **Security** - Security posture and recommendations\n5. **Testing** - Test coverage and quality\n6. **Performance** - Speed and optimization areas\n7. **Risk** - Blast radius and impact analysis\n\nAsk me specific questions about any of these areas for detailed insights.\n\n*🤖 ${repoCount > 0 ? `I have ${repoCount} repositories in my memory.` : 'Import a repository to unlock full intelligence.'}*`;
-            }
-
-            return matched.response + `\n\n*🤖 ${state.repos.length > 0 ? 'Analysis based on ' + state.repos.length + ' repositories.' : 'Import repositories for deeper insights.'}*`;
-        }
-
-        // ============================================
-        // BLAST RADIUS
-        // ============================================
-        function runBlastRadius() {
-            const input = $('blastInput');
-            const target = input.value.trim();
-            if (!target) return;
-
-            const btn = $('blastBtn');
-            btn.disabled = true;
-            btn.textContent = '⏳ Analyzing...';
-
-            const loading = $('blastLoading');
-            const result = $('blastResult');
-            if (loading) loading.style.display = 'block';
-            if (result) result.classList.remove('show');
-
-            setTimeout(() => {
-                const riskLevels = ['LOW', 'MEDIUM', 'CRITICAL'];
-                const risk = riskLevels[Math.floor(Math.random() * 3)];
-
-                const isCritical = target.includes('main') || target.includes('auth') || target.includes('core') ||
-                    target.includes('api');
-
-                const mockResult = {
-                    target: target,
-                    risk_level: isCritical ? 'CRITICAL' : risk,
-                    dependencies: isCritical ? Math.floor(Math.random() * 15) + 10 : Math.floor(Math.random() * 5) + 2,
-                    impact_files: isCritical ? [
-                        `src/api/${target.split('/').pop() || 'module'}.py`,
-                        `tests/test_${target.split('/').pop() || 'module'}.py`,
-                        `api/routes/${target.split('/').pop() || 'module'}.py`,
-                        `services/${target.split('/').pop() || 'module'}_service.py`,
-                    ] : [
-                        `src/${target.split('/').pop() || 'module'}.py`,
-                        `tests/test_${target.split('/').pop() || 'module'}.py`,
-                    ],
-                    services_affected: isCritical ? ['api-service', 'auth-service', 'user-service'] : ['api-service'],
-                    recommendation: isCritical ?
-                        '🚨 CRITICAL: DO NOT MODIFY without a staged rollout, feature flag, and proper review. This is a high-risk area affecting multiple services. Requires sign-off from: @security-team, @api-team, @lead-engineer' :
-                        risk === 'MEDIUM' ?
-                        '⚠️ MODERATE RISK: Consider adding extra test coverage and monitoring before deployment. Schedule a code review with @team-lead.' :
-                        '✅ LOW RISK: Safe to modify with standard testing practices. Document changes for audit trail.',
-                    timestamp: new Date().toISOString()
-                };
-
-                displayBlastResult(mockResult);
-
-                state.blastHistory.unshift({
-                    target,
-                    result: mockResult,
-                    timestamp: new Date().toISOString()
-                });
-                if (state.blastHistory.length > 10) state.blastHistory.pop();
-                saveState();
-                renderBlastHistory();
-
-                if (loading) loading.style.display = 'none';
-                btn.disabled = false;
-                btn.textContent = 'Analyze';
-            }, 1500 + Math.random() * 1000);
-        }
-
-        function displayBlastResult(data) {
-            const result = $('blastResult');
-            if (!result) return;
-
-            result.classList.add('show');
-
-            const risk = data.risk_level || 'MEDIUM';
-            const riskClass = risk.toLowerCase();
-
-            const riskEl = $('blastRisk');
-            const detailEl = $('blastDetail');
-            const filesEl = $('blastFiles');
-            const recEl = $('blastRecommendation');
-
-            if (riskEl) {
-                riskEl.innerHTML = `
-                    <span class="risk-${riskClass}">${risk}</span>
-                    <span style="font-size:14px;font-weight:400;color:var(--text-muted);margin-left:8px;">
-                        Blast Radius Analysis
-                    </span>
-                `;
-            }
-
-            if (detailEl) {
-                detailEl.textContent = data.detail || `Target "${data.target}" affects ${data.dependencies || 0} dependencies across ${data.services_affected?.length || 1} services.`;
-            }
-
-            if (filesEl) {
-                const files = data.impact_files || data.files || [];
-                if (files.length) {
-                    filesEl.innerHTML = files.map(f =>
-                        `<span class="file-tag">📄 ${f}</span>`
-                    ).join('');
-                } else {
-                    filesEl.innerHTML = '<span style="color:var(--text-muted);font-size:13px;">No impact files detected.</span>';
-                }
-            }
-
-            if (recEl) {
-                recEl.innerHTML = `
-                    <strong>🛡️ Recommendation:</strong> ${data.recommendation || 'Proceed with caution. Test thoroughly before deploying.'}
-                    ${data.services_affected ? `<br><br><strong>Services Affected:</strong> ${data.services_affected.join(', ')}` : ''}
-                `;
-            }
-        }
-
-        function renderBlastHistory() {
-            const container = $('blastHistory');
-            if (!container) return;
-
-            if (!state.blastHistory.length) {
-                container.innerHTML = `
-                    <div class="empty-state" style="padding:20px;">
-                        <p>No recent analyses. Run a blast radius check above.</p>
-                    </div>
-                `;
-                return;
-            }
-
-            container.innerHTML = state.blastHistory.slice(0, 5).map(item => `
-                <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-color);font-size:13px;">
-                    <span style="color:var(--text-secondary);">💥 ${item.target}</span>
-                    <span style="color:var(--text-muted);font-size:12px;">${item.result.risk_level || 'Unknown'} · ${new Date(item.timestamp).toLocaleString()}</span>
-                </div>
-            `).join('');
+        function toggleMobileMenu() {
+            const sidebar = $('sidebar');
+            if (sidebar) sidebar.classList.toggle('mobile-show');
         }
 
         // ============================================
@@ -1777,17 +1070,17 @@
             if (!container) return;
 
             container.innerHTML = state.agents.map(agent => `
-                <div class="agent-card">
-                    <div class="agent-icon">${agent.icon}</div>
-                    <div class="agent-name">${agent.name}</div>
-                    <div class="agent-role">${agent.role}</div>
-                    <div class="agent-status">
-                        Status: <span class="${agent.status}">● ${agent.status.charAt(0).toUpperCase() + agent.status.slice(1)}</span>
+                <div class="agent-card" style="background:var(--bg-card);border-radius:10px;border:1px solid var(--border-color);padding:18px 20px;transition:all 0.3s;">
+                    <div class="agent-icon" style="font-size:28px;margin-bottom:8px;">${agent.icon}</div>
+                    <div class="agent-name" style="font-weight:600;font-size:15px;">${agent.name}</div>
+                    <div class="agent-role" style="font-size:12px;color:var(--text-muted);margin-top:2px;">${agent.role}</div>
+                    <div class="agent-status" style="margin-top:10px;font-size:12px;font-weight:500;">
+                        Status: <span class="${agent.status}" style="${agent.status === 'ready' ? 'color:var(--accent-green);' : 'color:var(--accent-orange);'}">● ${agent.status.charAt(0).toUpperCase() + agent.status.slice(1)}</span>
                     </div>
-                    <div class="agent-capabilities">
-                        ${agent.capabilities.map(c => `<span class="cap">${c}</span>`).join('')}
+                    <div class="agent-capabilities" style="margin-top:10px;display:flex;flex-wrap:wrap;gap:4px;">
+                        ${agent.capabilities.map(c => `<span class="cap" style="font-size:10px;background:var(--bg-input);padding:2px 8px;border-radius:20px;color:var(--text-muted);">${c}</span>`).join('')}
                     </div>
-                    <button class="btn-activate" onclick="activateAgent('${agent.id}')" id="agent-${agent.id}">
+                    <button class="btn-activate" onclick="activateAgent('${agent.id}')" id="agent-${agent.id}" style="margin-top:12px;width:100%;padding:8px;background:var(--bg-input);border:1px solid var(--border-color);border-radius:8px;color:var(--text-secondary);font-size:13px;font-weight:500;cursor:pointer;transition:all 0.2s;font-family:var(--font-inter);">
                         ${agent.status === 'ready' ? '▶ Activate' : '⏳ Activating...'}
                     </button>
                 </div>
@@ -1823,15 +1116,11 @@
                 renderAgents();
                 renderAgentMini();
 
-                addTerminalMessage(`🤖 ${agent.name} activated: "${agent.role}"`, 'system');
-                addTerminalMessage(`📊 ${agent.name} is analyzing the codebase for ${agent.capabilities.join(', ')}.`, 'system');
-
                 setTimeout(() => {
                     if (state.agents[idx]) {
                         state.agents[idx].status = 'ready';
                         renderAgents();
                         renderAgentMini();
-                        addTerminalMessage(`✅ ${agent.name} analysis complete.`, 'system');
                         updateUI();
                     }
                 }, 3000);
@@ -1839,158 +1128,237 @@
         }
 
         // ============================================
-        // NAVIGATION
-        // ============================================
-        function navigateTo(page) {
-            state.currentPage = page;
-
-            $$('.sidebar-nav-item').forEach(el => {
-                el.classList.toggle('active', el.dataset.page === page);
-            });
-
-            $$('.page').forEach(el => {
-                el.classList.toggle('active', el.id === `page-${page}`);
-            });
-
-            const sidebar = $('sidebar');
-            if (sidebar) sidebar.classList.remove('mobile-show');
-
-            // Refresh graph if navigating to graph page
-            if (page === 'graph') {
-                setTimeout(generateKnowledgeGraph, 100);
-            }
-        }
-
-        function toggleMobileMenu() {
-            const sidebar = $('sidebar');
-            if (sidebar) sidebar.classList.toggle('mobile-show');
-        }
-
-        // ============================================
         // UI UPDATE
         // ============================================
         function updateUI() {
-            const user = state.user || {};
             const repos = state.repos || [];
 
-            if (user.avatar_url) {
-                const avatar = $('avatar');
-                if (avatar) avatar.src = user.avatar_url;
-            }
-            const userName = $('userName');
-            if (userName) userName.textContent = user.name || 'Engineer';
-            const userUsername = $('userUsername');
-            if (userUsername) userUsername.textContent = `@${user.username || 'user'}`;
-            const welcomeName = $('welcomeName');
-            if (welcomeName) welcomeName.textContent = user.name || 'Engineer';
+            $('statRepos').textContent = repos.length;
+            $('statFiles').textContent = state.filesAnalyzed || 0;
 
-            const statRepos = $('statRepos');
-            if (statRepos) statRepos.textContent = repos.length;
+            const health = Math.min(100, state.healthScore || 85);
+            $('statHealth').textContent = health + '%';
+            $('statHealth').style.color = health > 80 ? 'var(--accent-green)' : health > 60 ? 'var(--accent-orange)' :
+                'var(--accent-red)';
 
-            const statFiles = $('statFiles');
-            if (statFiles) statFiles.textContent = state.filesAnalyzed || 0;
+            const active = state.agents.filter(a => a.status === 'busy').length;
+            $('statAgents').textContent = `${active}/5`;
 
-            const statHealth = $('statHealth');
-            if (statHealth) {
-                const health = Math.min(100, state.healthScore || 85);
-                statHealth.textContent = health + '%';
-                statHealth.style.color = health > 80 ? 'var(--accent-green)' : health > 60 ? 'var(--accent-orange)' :
-                    'var(--accent-red)';
-            }
-
-            const statAgents = $('statAgents');
-            if (statAgents) {
-                const active = state.agents.filter(a => a.status === 'busy').length;
-                statAgents.textContent = `${active}/5`;
-            }
-
-            const repoCount = $('repoCount');
-            if (repoCount) repoCount.textContent = repos.length;
-
-            const fileCount = $('fileCount');
-            if (fileCount) fileCount.textContent = state.filesAnalyzed || 0;
-
-            const moduleCount = $('moduleCount');
-            if (moduleCount) moduleCount.textContent = state.modulesCount || 0;
-
-            const embeddingCount = $('embeddingCount');
-            if (embeddingCount) embeddingCount.textContent = Math.floor((state.filesAnalyzed || 0) * 2);
-
-            const depCount = $('depCount');
-            if (depCount) depCount.textContent = state.dependenciesCount || 0;
-
-            const regionDisplay = $('regionDisplay');
-            if (regionDisplay) regionDisplay.textContent = user.location || 'Live';
-
-            renderRepos();
-            renderBlastHistory();
-            renderPRHistory();
+            $('fileCount').textContent = state.filesAnalyzed || 0;
+            $('moduleCount').textContent = state.modulesCount || 0;
+            $('embeddingCount').textContent = Math.floor((state.filesAnalyzed || 0) * 2);
+            $('depCount').textContent = state.dependenciesCount || 0;
         }
 
         // ============================================
-        // RENDER REPOS
+        // SIMULATE GRAPH
         // ============================================
-        function renderRepos() {
-            const container = $('repoList');
+        function simulateGraph() {
+            const container = $('page-graph').querySelector('.card');
             if (!container) return;
 
-            if (!state.repos.length) {
-                container.innerHTML = `
-                    <div class="empty-state">
-                        <div class="icon">📭</div>
-                        <h3>No repositories imported</h3>
-                        <p>Import a repository above to start building your engineering memory.</p>
+            container.innerHTML = `
+                <div style="padding:20px;text-align:center;color:var(--text-muted);">
+                    <div style="font-size:48px;margin-bottom:16px;">🕸️</div>
+                    <h3 style="color:var(--text-secondary);margin-bottom:8px;">Knowledge Graph Loaded</h3>
+                    <p style="font-size:14px;">${Math.floor(Math.random() * 20) + 10} nodes · ${Math.floor(Math.random() * 30) + 15} connections</p>
+                    <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:16px;">
+                        <span class="badge" style="padding:4px 12px;border-radius:20px;font-size:11px;border:1px solid var(--border-color);background:var(--bg-secondary);color:var(--text-secondary);">🟣 Core Modules</span>
+                        <span class="badge" style="padding:4px 12px;border-radius:20px;font-size:11px;border:1px solid var(--border-color);background:var(--bg-secondary);color:var(--text-secondary);">🔵 Services</span>
+                        <span class="badge" style="padding:4px 12px;border-radius:20px;font-size:11px;border:1px solid var(--border-color);background:var(--bg-secondary);color:var(--text-secondary);">🟢 Data Layer</span>
+                        <span class="badge" style="padding:4px 12px;border-radius:20px;font-size:11px;border:1px solid var(--border-color);background:var(--bg-secondary);color:var(--text-secondary);">🔴 High Risk</span>
                     </div>
-                `;
-                return;
-            }
-
-            container.innerHTML = state.repos.slice().reverse().map(repo => `
-                <div class="repo-item">
-                    <div class="info">
-                        <div class="name"><a href="${repo.html_url}" target="_blank">${repo.name}</a></div>
-                        <div class="desc">${repo.description || 'Repository imported via Axiom'}</div>
-                        <div class="tags">
-                            ${repo.language ? `<span class="lang">● ${repo.language}</span>` : ''}
-                            <span class="stars">⭐ ${repo.stargazers_count}</span>
-                            <span class="forks">🔀 ${repo.forks_count}</span>
-                            <span class="${repo.private ? 'private' : 'public'}">
-                                ${repo.private ? '🔒 Private' : '🌐 Public'}
-                            </span>
-                            <span style="color:var(--text-muted);font-size:11px;">
-                                📄 ${repo.files || 0} files
-                            </span>
-                            <span style="color:var(--text-muted);font-size:11px;">
-                                🧩 ${repo.modules || 0} modules
-                            </span>
-                            <span class="risk">🔴 Risk: ${repo.risk_score || 0}%</span>
-                        </div>
-                    </div>
-                    <div class="actions">
-                        <button class="btn-sm" onclick="quickPrompt('Analyze ${repo.name} repository')">📊 Analyze</button>
-                        <button class="btn-sm" onclick="navigateTo('chat');quickPrompt('What does ${repo.name} do?')">💬 Ask</button>
-                        <button class="btn-sm" onclick="navigateTo('graph')">🕸️ Graph</button>
+                    <div style="margin-top:16px;padding:12px 16px;background:var(--bg-input);border-radius:8px;font-size:13px;color:var(--text-secondary);">
+                        <strong style="color:var(--text-primary);">Click a node</strong> to see details about dependencies, risk, and ownership.
                     </div>
                 </div>
-            `).join('');
+            `;
         }
 
         // ============================================
-        // INIT LOG
+        // PR INTELLIGENCE
         // ============================================
-        console.log('⚡ Axiom v1.0.0 - Production Ready');
-        console.log('📊 Engineering Memory Infrastructure');
-        console.log('🔑 GitHub OAuth enabled');
-        console.log('🤖 5 Agents ready');
-        console.log('💥 Blast Radius analysis available');
-        console.log('📁 Repository import ready');
-        console.log('🕸️ Knowledge Graph ready');
-        console.log('🔍 PR Intelligence ready');
+        function analyzePR() {
+            const input = $('prUrlInput');
+            const prNumber = input.value.trim().replace('#', '');
+            if (!prNumber) return;
 
-        if (state.user) {
-            showDashboard();
-            updateUI();
+            const btn = $('prBtn');
+            btn.disabled = true;
+            btn.textContent = '⏳ Analyzing...';
+
+            const status = $('prStatus');
+            status.textContent = '🔍 Analyzing PR #' + prNumber + '...';
+            status.className = 'import-status show loading';
+
+            setTimeout(() => {
+                const riskLevels = ['LOW', 'MEDIUM', 'CRITICAL'];
+                const risk = riskLevels[Math.floor(Math.random() * 3)];
+
+                const result = {
+                    pr_number: prNumber,
+                    risk_level: risk,
+                    files_changed: Math.floor(Math.random() * 15) + 1,
+                    lines_added: Math.floor(Math.random() * 200) + 10,
+                    lines_removed: Math.floor(Math.random() * 100) + 5,
+                    dependencies_affected: Math.floor(Math.random() * 8) + 1,
+                    impact_files: ['src/api/routes.py', 'src/models/user.py', 'tests/test_auth.py'],
+                    services_affected: ['api-service', 'auth-service'],
+                    recommendation: risk === 'CRITICAL' ?
+                        '🚨 CRITICAL: This PR affects multiple services. Require review from both the API and Security teams.' :
+                        risk === 'MEDIUM' ?
+                        '⚠️ MODERATE RISK: Ensure thorough testing and at least one reviewer from the affected service team.' :
+                        '✅ LOW RISK: Standard review process applies.'
+                };
+
+                displayPRResult(result);
+
+                status.textContent = '✅ Analysis complete!';
+                status.className = 'import-status show success';
+
+                btn.disabled = false;
+                btn.textContent = 'Analyze';
+            }, 1500);
         }
+
+        function displayPRResult(data) {
+            const container = $('prResults');
+            if (!container) return;
+
+            const riskClass = data.risk_level.toLowerCase();
+
+            container.innerHTML = `
+                <div style="margin-bottom:16px;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+                        <span style="font-size:18px;font-weight:700;">PR #${data.pr_number}</span>
+                        <span style="font-size:12px;font-weight:600;padding:2px 10px;border-radius:20px;${data.risk_level === 'CRITICAL' ? 'background:rgba(239,68,68,0.15);color:var(--accent-red);' : data.risk_level === 'MEDIUM' ? 'background:rgba(249,115,22,0.15);color:var(--accent-orange);' : 'background:rgba(34,197,94,0.15);color:var(--accent-green);'}">${data.risk_level}</span>
+                    </div>
+                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:12px;margin-top:12px;">
+                        <div style="background:var(--bg-input);padding:10px 14px;border-radius:6px;">
+                            <div style="font-size:11px;color:var(--text-muted);">Files Changed</div>
+                            <div style="font-size:18px;font-weight:700;">${data.files_changed}</div>
+                        </div>
+                        <div style="background:var(--bg-input);padding:10px 14px;border-radius:6px;">
+                            <div style="font-size:11px;color:var(--text-muted);">Lines Added</div>
+                            <div style="font-size:18px;font-weight:700;color:var(--accent-green);">+${data.lines_added}</div>
+                        </div>
+                        <div style="background:var(--bg-input);padding:10px 14px;border-radius:6px;">
+                            <div style="font-size:11px;color:var(--text-muted);">Lines Removed</div>
+                            <div style="font-size:18px;font-weight:700;color:var(--accent-red);">-${data.lines_removed}</div>
+                        </div>
+                        <div style="background:var(--bg-input);padding:10px 14px;border-radius:6px;">
+                            <div style="font-size:11px;color:var(--text-muted);">Dependencies</div>
+                            <div style="font-size:18px;font-weight:700;">${data.dependencies_affected}</div>
+                        </div>
+                    </div>
+                    <div style="margin-top:12px;padding:12px 16px;background:rgba(139,92,246,0.05);border-left:3px solid var(--accent-purple);border-radius:6px;font-size:14px;color:var(--text-secondary);">
+                        <strong>🛡️ Recommendation:</strong> ${data.recommendation}
+                    </div>
+                </div>
+            `;
+        }
+
+        // ============================================
+        // BLAST RADIUS
+        // ============================================
+        function runBlastRadius() {
+            const input = $('blastInput');
+            const target = input.value.trim();
+            if (!target) return;
+
+            const btn = $('blastBtn');
+            btn.disabled = true;
+            btn.textContent = '⏳ Analyzing...';
+
+            const loading = $('blastLoading');
+            const result = $('blastResult');
+            if (loading) loading.style.display = 'block';
+            if (result) result.style.display = 'none';
+
+            setTimeout(() => {
+                const riskLevels = ['LOW', 'MEDIUM', 'CRITICAL'];
+                const risk = riskLevels[Math.floor(Math.random() * 3)];
+
+                const isCritical = target.includes('main') || target.includes('auth') || target.includes('core');
+
+                const mockResult = {
+                    target: target,
+                    risk_level: isCritical ? 'CRITICAL' : risk,
+                    dependencies: isCritical ? Math.floor(Math.random() * 15) + 10 : Math.floor(Math.random() * 5) + 2,
+                    impact_files: isCritical ? [
+                        `src/api/${target.split('/').pop() || 'module'}.py`,
+                        `tests/test_${target.split('/').pop() || 'module'}.py`,
+                        `api/routes/${target.split('/').pop() || 'module'}.py`,
+                    ] : [
+                        `src/${target.split('/').pop() || 'module'}.py`,
+                        `tests/test_${target.split('/').pop() || 'module'}.py`,
+                    ],
+                    recommendation: isCritical ?
+                        '🚨 CRITICAL: DO NOT MODIFY without a staged rollout, feature flag, and proper review. This is a high-risk area.' :
+                        risk === 'MEDIUM' ?
+                        '⚠️ MODERATE RISK: Consider adding extra test coverage and monitoring before deployment.' :
+                        '✅ LOW RISK: Safe to modify with standard testing practices.'
+                };
+
+                displayBlastResult(mockResult);
+
+                if (loading) loading.style.display = 'none';
+                btn.disabled = false;
+                btn.textContent = 'Analyze';
+            }, 1500);
+        }
+
+        function displayBlastResult(data) {
+            const result = $('blastResult');
+            if (!result) return;
+
+            result.style.display = 'block';
+
+            const risk = data.risk_level || 'MEDIUM';
+            const riskClass = risk.toLowerCase();
+
+            $('blastRisk').innerHTML = `
+                <span class="risk-${riskClass}" style="${risk === 'CRITICAL' ? 'color:var(--accent-red);' : risk === 'MEDIUM' ? 'color:var(--accent-orange);' : 'color:var(--accent-green);'}font-weight:700;font-size:20px;">${risk}</span>
+                <span style="font-size:14px;font-weight:400;color:var(--text-muted);margin-left:8px;">
+                    Blast Radius Analysis
+                </span>
+            `;
+
+            $('blastDetail').textContent = `Target "${data.target}" affects ${data.dependencies || 0} dependencies.`;
+
+            if (data.impact_files && data.impact_files.length) {
+                $('blastFiles').innerHTML = data.impact_files.map(f =>
+                    `<span class="file-tag" style="background:var(--bg-input);padding:2px 10px;border-radius:20px;font-size:12px;font-family:var(--font-mono);color:var(--text-secondary);">📄 ${f}</span>`
+                ).join('');
+            }
+
+            $('blastRecommendation').innerHTML = `
+                <strong>🛡️ Recommendation:</strong> ${data.recommendation || 'Proceed with caution. Test thoroughly before deploying.'}
+            `;
+        }
+
+        // ============================================
+        // KEYBOARD SHORTCUTS
+        // ============================================
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'k') {
+                e.preventDefault();
+                navigateTo('dashboard');
+            }
+            if (e.key === 'Escape') {
+                document.activeElement?.blur();
+            }
+        });
+
+        // ============================================
+        // INIT
+        // ============================================
+        console.log('⚡ Axiom v1.0.0 — Production Ready');
+        console.log('👤 Built by vxssroot · Nigeria 🇳🇬');
+        console.log('🧠 Engineering Memory Infrastructure');
+
+        // If user already logged in (for demo, we auto-enter after 2s on welcome)
+        // But we let them click Continue
     </script>
 
 </body>
